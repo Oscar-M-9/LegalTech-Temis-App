@@ -4,7 +4,9 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:legaltech_temis/core/models/clientes_model.dart';
+import 'package:legaltech_temis/core/routes/routes.dart';
 import 'package:legaltech_temis/core/services/clientes_service.dart';
+import 'package:legaltech_temis/core/services/proceso_service.dart';
 import 'package:legaltech_temis/core/utils/app_colors.dart';
 import 'package:legaltech_temis/views/clientes/widgets/search_input_widget.dart';
 import 'package:legaltech_temis/widgets/appbar_actions_widget.dart';
@@ -52,10 +54,13 @@ class ClientesView extends StatelessWidget {
                 }
               },
             ),
-            Divider(
-              color: currentBrightness == Brightness.light
-                  ? Colors.black26
-                  : Colors.grey[600],
+            // Divider(
+            //   color: currentBrightness == Brightness.light
+            //       ? Colors.black26
+            //       : Colors.grey[600],
+            // ),
+            const SizedBox(
+              height: 10,
             ),
             FutureBuilder<Map<String, dynamic>>(
               future: clienteService.clientesLoaded
@@ -92,11 +97,14 @@ class ClientesView extends StatelessWidget {
                   Map<String, dynamic> data = snapshot.data!;
                   // Implementa tu lógica para mostrar los datos aquí
                   return data["message"] == "No hay conexión a Internet"
-                      ? NoConnectionView(
-                          message: data["message"],
-                          onPressed: () async {
-                            clienteService.refreshClientes();
-                          },
+                      ? Expanded(
+                          child: NoConnectionView(
+                            message: data["message"],
+                            onPressed: () async {
+                              clienteService.clientesLoaded = false;
+                              print("🤣 ${clienteService.clientesLoaded}");
+                            },
+                          ),
                         )
                       : Expanded(
                           child: _buildDataView(
@@ -120,8 +128,12 @@ class ClientesView extends StatelessWidget {
     );
   }
 
-  Widget _buildDataView(List<Cliente>? data, BuildContext context, String query,
-      Brightness currentBrightness) {
+  Widget _buildDataView(
+    List<Cliente>? data,
+    BuildContext context,
+    String query,
+    Brightness currentBrightness,
+  ) {
     return data!.isNotEmpty
         ? SingleChildScrollView(
             child: Padding(
@@ -141,7 +153,10 @@ class ClientesView extends StatelessWidget {
                         data[index].typeContact == "Empresa" ? true : false;
                     final email = jsonDecode(data[index].email ?? "");
                     return Container(
-                      width: 350,
+                      width: MediaQuery.of(context).orientation ==
+                              Orientation.landscape
+                          ? MediaQuery.of(context).size.width * 0.46
+                          : MediaQuery.of(context).size.width * 0.92,
                       decoration: BoxDecoration(
                         color: currentBrightness == Brightness.light
                             ? Colors.grey.withOpacity(.1)
@@ -160,6 +175,15 @@ class ClientesView extends StatelessWidget {
                             : AppColors.primary200,
                         onTap: () {
                           print(data[index].id);
+                          final pService = context.read<ProcesoService>();
+                          pService.query = "";
+                          pService.procesoLoaded = false;
+
+                          Navigator.pushNamed(
+                            context,
+                            Routes.procesos,
+                            arguments: data[index].id,
+                          );
                         },
                         leading: Icon(
                           isEmpresa

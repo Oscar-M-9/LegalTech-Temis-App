@@ -28,6 +28,7 @@ class HomeService extends ChangeNotifier {
     try {
       // Obtiene el token almacenado
       final String? token = await storage.read(key: 'token');
+      print(token);
       final response = await http.get(
         url,
         headers: {

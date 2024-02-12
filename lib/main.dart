@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:legaltech_temis/core/preferences/preferences.dart';
 import 'package:legaltech_temis/core/providers/connectivity_provider.dart';
@@ -9,6 +10,7 @@ import 'package:legaltech_temis/core/services/calendar_service.dart';
 import 'package:legaltech_temis/core/services/clientes_service.dart';
 import 'package:legaltech_temis/core/services/home_service.dart';
 import 'package:legaltech_temis/core/services/notification_service.dart';
+import 'package:legaltech_temis/core/services/proceso_service.dart';
 import 'package:legaltech_temis/core/services/snackbar_service.dart';
 import 'package:legaltech_temis/core/utils/app_colors.dart';
 import 'package:legaltech_temis/core/routes/app_routes.dart';
@@ -96,6 +98,9 @@ void main() async {
       ChangeNotifierProvider(
         create: (_) => ClienteService(),
       ),
+      ChangeNotifierProvider(
+        create: (_) => ProcesoService(),
+      ),
     ],
     child: const MyApp(),
   ));
@@ -127,10 +132,13 @@ class MyApp extends StatelessWidget {
         primaryColor: AppColors.primary,
         primarySwatch: AppColors.primeColor,
         appBarTheme: const AppBarTheme(
+          surfaceTintColor: Colors.transparent,
+          centerTitle: true,
           backgroundColor: AppColors.white,
           foregroundColor: CupertinoColors.darkBackgroundGray,
           titleTextStyle: TextStyle(
-            fontWeight: FontWeight.bold,
+            fontFamily: "Poppins",
+            fontWeight: FontWeight.w600,
             color: CupertinoColors.darkBackgroundGray,
             fontSize: 18,
           ),
@@ -153,6 +161,17 @@ class MyApp extends StatelessWidget {
       darkTheme: ThemeData(
         visualDensity: VisualDensity.adaptivePlatformDensity,
         useMaterial3: true,
+        appBarTheme: AppBarTheme(
+          centerTitle: true,
+          surfaceTintColor: Colors.transparent,
+          backgroundColor: AppColors.primary950,
+          foregroundColor: Colors.grey[200],
+          titleTextStyle: const TextStyle(
+            fontSize: 18,
+            fontFamily: "Poppins",
+            fontWeight: FontWeight.w600,
+          ),
+        ),
         colorScheme: const ColorScheme.dark(),
         cardColor: CupertinoColors.systemGrey,
         textTheme: const TextTheme(

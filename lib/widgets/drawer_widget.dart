@@ -23,53 +23,104 @@ class DrawerWidget extends StatelessWidget {
     final jsonUser = jsonDecode(Preferences.user);
     final User usuario = User.fromJson(jsonUser);
     Brightness currentBrightness = Theme.of(context).brightness;
+
     return Drawer(
+      backgroundColor:
+          currentBrightness == Brightness.light ? Colors.white : Colors.black,
       child: Column(
         children: [
-          Padding(
-            padding: const EdgeInsets.only(
-              right: 10,
-              left: 10,
-              top: 40,
+          DrawerHeader(
+            decoration: const BoxDecoration(
+              color: AppColors.primary,
             ),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                const CircleAvatar(
-                  maxRadius: 40,
-                  backgroundColor: AppColors.primary,
-                  child: Padding(
-                    padding: EdgeInsets.all(10.0),
-                    child: Image(
-                      image: AssetImage("assets/icons/TEMIS FAVICON2.png"),
+            child: SizedBox(
+              width: double.infinity,
+              height: double.infinity,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  const CircleAvatar(
+                    maxRadius: 35,
+                    backgroundColor: AppColors.primary,
+                    child: Padding(
+                      padding: EdgeInsets.all(10.0),
+                      child: Image(
+                        image: AssetImage("assets/icons/TEMIS FAVICON2.png"),
+                      ),
                     ),
                   ),
-                ),
-                const SizedBox(
-                  width: 15,
-                ),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    AutoSizeText(
-                      "${usuario.name}, ${usuario.lastname}",
-                      style: const TextStyle(
-                        fontSize: 18,
-                        fontWeight: FontWeight.w500,
+                  const SizedBox(
+                    width: 15,
+                  ),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      AutoSizeText(
+                        "${usuario.name}, ${usuario.lastname}",
+                        style: const TextStyle(
+                          color: Colors.white,
+                          fontSize: 18,
+                          fontWeight: FontWeight.w500,
+                        ),
                       ),
-                    ),
-                    AutoSizeText(
-                      usuario.email,
-                      style: const TextStyle(
-                        fontSize: 13,
-                        fontWeight: FontWeight.w300,
+                      AutoSizeText(
+                        usuario.email,
+                        style: const TextStyle(
+                          color: Colors.white70,
+                          fontSize: 14,
+                          fontWeight: FontWeight.w300,
+                        ),
                       ),
-                    ),
-                  ],
-                )
-              ],
+                    ],
+                  )
+                ],
+              ),
             ),
           ),
+          // Padding(
+          //   padding: const EdgeInsets.only(
+          //     right: 10,
+          //     left: 10,
+          //     top: 40,
+          //   ),
+          //   child: Row(
+          //     mainAxisAlignment: MainAxisAlignment.start,
+          //     children: [
+          //       const CircleAvatar(
+          //         maxRadius: 40,
+          //         backgroundColor: AppColors.primary,
+          //         child: Padding(
+          //           padding: EdgeInsets.all(10.0),
+          //           child: Image(
+          //             image: AssetImage("assets/icons/TEMIS FAVICON2.png"),
+          //           ),
+          //         ),
+          //       ),
+          //       const SizedBox(
+          //         width: 15,
+          //       ),
+          //       Column(
+          //         crossAxisAlignment: CrossAxisAlignment.start,
+          //         children: [
+          //           AutoSizeText(
+          //             "${usuario.name}, ${usuario.lastname}",
+          //             style: const TextStyle(
+          //               fontSize: 18,
+          //               fontWeight: FontWeight.w500,
+          //             ),
+          //           ),
+          //           AutoSizeText(
+          //             usuario.email,
+          //             style: const TextStyle(
+          //               fontSize: 13,
+          //               fontWeight: FontWeight.w300,
+          //             ),
+          //           ),
+          //         ],
+          //       )
+          //     ],
+          //   ),
+          // ),
           Expanded(
             child: ListView(
               children: [
@@ -81,9 +132,9 @@ class DrawerWidget extends StatelessWidget {
                     top: 10,
                   ),
                   decoration: BoxDecoration(
-                    color: currentBrightness == Brightness.light
-                        ? AppColors.primary950.withOpacity(.1)
-                        : Colors.grey[900],
+                    // color: currentBrightness == Brightness.light
+                    //     ? AppColors.primary950.withOpacity(.1)
+                    //     : Colors.grey[900],
                     borderRadius: BorderRadius.circular(5),
                   ),
                   child: ListTile(
@@ -123,9 +174,9 @@ class DrawerWidget extends StatelessWidget {
                     bottom: 10,
                   ),
                   decoration: BoxDecoration(
-                    color: currentBrightness == Brightness.light
-                        ? AppColors.primary950.withOpacity(.1)
-                        : Colors.grey[900],
+                    // color: currentBrightness == Brightness.light
+                    //     ? AppColors.primary950.withOpacity(.1)
+                    //     : Colors.grey[900],
                     borderRadius: BorderRadius.circular(5),
                   ),
                   child: ListTile(
@@ -157,7 +208,7 @@ class DrawerWidget extends StatelessWidget {
                 bottom: 15,
               ),
               color: currentBrightness == Brightness.light
-                  ? AppColors.primary
+                  ? Colors.red[700]
                   : Colors.red[900],
               borderRadius: BorderRadius.circular(15),
               pressedOpacity: 0.7,

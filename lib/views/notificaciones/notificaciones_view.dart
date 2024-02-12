@@ -240,6 +240,7 @@ class NoNotification extends StatelessWidget {
 AssetImage getImageForEntity(String entity) {
   switch (entity) {
     case "CEJ Judicial":
+      return const AssetImage("assets/images/attorney.png");
     case "CEJ Suprema":
       return const AssetImage("assets/images/attorney.png");
     case "Indecopi":

@@ -8,4 +8,5 @@ class Routes {
   static const notificaciones = '/notificaciones';
   static const home = '/home';
   static const clientes = '/clientes';
+  static const procesos = '/clientes/procesos';
 }

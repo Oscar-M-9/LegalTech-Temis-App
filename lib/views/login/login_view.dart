@@ -27,6 +27,7 @@ class LoginView extends StatelessWidget {
           /*  */
         },
         child: SingleChildScrollView(
+          physics: const BouncingScrollPhysics(),
           child: Center(
             child: Padding(
               padding: const EdgeInsets.only(

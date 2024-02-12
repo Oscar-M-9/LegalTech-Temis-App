@@ -158,235 +158,242 @@ class HomeView extends StatelessWidget {
     print(data);
     return data["status"] == true
         ? SingleChildScrollView(
-            child: Padding(
-              padding: const EdgeInsets.only(
-                left: 10,
-                right: 10,
-                bottom: 20,
-                top: 10,
-              ),
-              child: Wrap(
-                spacing: 8.0,
-                runSpacing: 16.0,
-                children: List.generate(
-                  data["data"]["namesProcesos"].length,
-                  (index) {
-                    return Container(
-                      width: 350,
-                      decoration: BoxDecoration(
-                        color: currentBrightness == Brightness.light
-                            ? Colors.grey[200]
-                            : Colors.grey[900],
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(
-                          vertical: 15,
-                          horizontal: 10,
+            child: Center(
+              child: Padding(
+                padding: const EdgeInsets.only(
+                  left: 10,
+                  right: 10,
+                  bottom: 20,
+                  top: 10,
+                ),
+                child: Wrap(
+                  spacing: 10.0,
+                  runSpacing: 16.0,
+                  children: List.generate(
+                    data["data"]["namesProcesos"].length,
+                    (index) {
+                      return Container(
+                        width: 350,
+                        decoration: BoxDecoration(
+                          color: currentBrightness == Brightness.light
+                              ? Colors.grey[200]
+                              : Colors.grey[900],
+                          borderRadius: BorderRadius.circular(10),
                         ),
-                        child: Column(
-                          children: [
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Row(
-                                  children: [
-                                    Icon(
-                                      CupertinoIcons.folder,
-                                      color:
-                                          currentBrightness == Brightness.light
-                                              ? AppColors.primary
-                                              : Colors.white,
-                                    ),
-                                    const SizedBox(
-                                      width: 20,
-                                    ),
-                                    Text(
-                                      data["data"]["namesProcesos"][index],
-                                      style: const TextStyle(
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: 16,
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(
+                            vertical: 15,
+                            horizontal: 10,
+                          ),
+                          child: Column(
+                            children: [
+                              Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Row(
+                                    children: [
+                                      Icon(
+                                        CupertinoIcons.folder,
+                                        color: currentBrightness ==
+                                                Brightness.light
+                                            ? AppColors.primary
+                                            : Colors.white,
                                       ),
-                                    ),
-                                  ],
-                                ),
-                                Text(
-                                  data["data"]["listExpedientes"][index] > 999
-                                      ? "999+"
-                                      : "${data["data"]["listExpedientes"][index]}",
-                                  style: const TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 16,
+                                      const SizedBox(
+                                        width: 20,
+                                      ),
+                                      Text(
+                                        data["data"]["namesProcesos"][index],
+                                        style: const TextStyle(
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 16,
+                                        ),
+                                      ),
+                                    ],
                                   ),
-                                ),
-                              ],
-                            ),
-                            const SizedBox(
-                              height: 15,
-                            ),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceAround,
-                              children: [
-                                Column(
-                                  children: [
-                                    Container(
-                                      // height: 110,
-                                      width: 100,
-                                      decoration: BoxDecoration(
-                                        color: currentBrightness ==
-                                                Brightness.light
-                                            ? Colors.grey[300]
-                                            : Colors.grey[800],
-                                        borderRadius: BorderRadius.circular(10),
-                                      ),
-                                      child: Padding(
-                                        padding: const EdgeInsets.symmetric(
-                                          vertical: 10,
-                                          horizontal: 5,
-                                        ),
-                                        child: Column(
-                                          children: [
-                                            Icon(
-                                              Icons.attach_money,
-                                              color: Colors.green[700],
-                                              size: 30,
-                                            ),
-                                            AutoSizeText(
-                                              "Ingresos",
-                                              style: TextStyle(
-                                                fontWeight: FontWeight.bold,
-                                                color: Colors.green[800],
-                                              ),
-                                            ),
-                                            AutoSizeText(
-                                              formatearMoneda(
-                                                  data["data"][
-                                                          "listSumaRecaudacionMountSol"]
-                                                      [index],
-                                                  "Sol"),
-                                            ),
-                                            AutoSizeText(
-                                              formatearMoneda(
-                                                  data["data"][
-                                                          "listSumaRecaudacionMountDolar"]
-                                                      [index],
-                                                  "Dólar"),
-                                            ),
-                                          ],
-                                        ),
-                                      ),
+                                  Text(
+                                    data["data"]["listExpedientes"][index] > 999
+                                        ? "999+"
+                                        : "${data["data"]["listExpedientes"][index]}",
+                                    style: const TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 16,
                                     ),
-                                  ],
-                                ),
-                                Column(
-                                  children: [
-                                    Container(
-                                      // height: 110,
-                                      width: 100,
-                                      decoration: BoxDecoration(
-                                        color: currentBrightness ==
-                                                Brightness.light
-                                            ? Colors.grey[300]
-                                            : Colors.grey[800],
-                                        borderRadius: BorderRadius.circular(10),
-                                      ),
-                                      child: Padding(
-                                        padding: const EdgeInsets.symmetric(
-                                          vertical: 10,
-                                          horizontal: 5,
+                                  ),
+                                ],
+                              ),
+                              const SizedBox(
+                                height: 15,
+                              ),
+                              Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceAround,
+                                children: [
+                                  Column(
+                                    children: [
+                                      Container(
+                                        // height: 110,
+                                        width: 100,
+                                        decoration: BoxDecoration(
+                                          color: currentBrightness ==
+                                                  Brightness.light
+                                              ? Colors.grey[300]
+                                              : Colors.grey[800],
+                                          borderRadius:
+                                              BorderRadius.circular(10),
                                         ),
-                                        child: Column(
-                                          children: [
-                                            Icon(
-                                              Icons.leaderboard,
-                                              color: Colors.yellow[700],
-                                              size: 30,
-                                            ),
-                                            AutoSizeText(
-                                              "Comisiones",
-                                              style: TextStyle(
-                                                fontWeight: FontWeight.bold,
-                                                color: Colors.yellow[800],
+                                        child: Padding(
+                                          padding: const EdgeInsets.symmetric(
+                                            vertical: 10,
+                                            horizontal: 5,
+                                          ),
+                                          child: Column(
+                                            children: [
+                                              Icon(
+                                                Icons.attach_money,
+                                                color: Colors.green[700],
+                                                size: 30,
                                               ),
-                                            ),
-                                            AutoSizeText(
-                                              formatearMoneda(
-                                                  data["data"][
-                                                          "listSumaComisionesMountSol"]
-                                                      [index],
-                                                  "Sol"),
-                                            ),
-                                            AutoSizeText(
-                                              formatearMoneda(
-                                                  data["data"][
-                                                          "listSumaComisionesMountDolar"]
-                                                      [index],
-                                                  "Dólar"),
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                                Column(
-                                  children: [
-                                    Container(
-                                      // height: 110,
-                                      width: 100,
-                                      decoration: BoxDecoration(
-                                        color: currentBrightness ==
-                                                Brightness.light
-                                            ? Colors.grey[300]
-                                            : Colors.grey[800],
-                                        borderRadius: BorderRadius.circular(10),
-                                      ),
-                                      child: Padding(
-                                        padding: const EdgeInsets.symmetric(
-                                          vertical: 10,
-                                          horizontal: 5,
-                                        ),
-                                        child: Column(
-                                          children: [
-                                            Icon(
-                                              Icons.money_off,
-                                              color: Colors.red[700],
-                                              size: 30,
-                                            ),
-                                            AutoSizeText(
-                                              "Gastos",
-                                              style: TextStyle(
-                                                fontWeight: FontWeight.bold,
-                                                color: Colors.red[800],
+                                              AutoSizeText(
+                                                "Ingresos",
+                                                style: TextStyle(
+                                                  fontWeight: FontWeight.bold,
+                                                  color: Colors.green[800],
+                                                ),
                                               ),
-                                            ),
-                                            AutoSizeText(
-                                              formatearMoneda(
-                                                  data["data"][
-                                                          "listSumaGastosMountSol"]
-                                                      [index],
-                                                  "Sol"),
-                                            ),
-                                            AutoSizeText(
-                                              formatearMoneda(
-                                                  data["data"][
-                                                          "listSumaGastosMountDolar"]
-                                                      [index],
-                                                  "Dólar"),
-                                            ),
-                                          ],
+                                              AutoSizeText(
+                                                formatearMoneda(
+                                                    data["data"][
+                                                            "listSumaRecaudacionMountSol"]
+                                                        [index],
+                                                    "Sol"),
+                                              ),
+                                              AutoSizeText(
+                                                formatearMoneda(
+                                                    data["data"][
+                                                            "listSumaRecaudacionMountDolar"]
+                                                        [index],
+                                                    "Dólar"),
+                                              ),
+                                            ],
+                                          ),
                                         ),
                                       ),
-                                    ),
-                                  ],
-                                )
-                              ],
-                            )
-                          ],
+                                    ],
+                                  ),
+                                  Column(
+                                    children: [
+                                      Container(
+                                        // height: 110,
+                                        width: 100,
+                                        decoration: BoxDecoration(
+                                          color: currentBrightness ==
+                                                  Brightness.light
+                                              ? Colors.grey[300]
+                                              : Colors.grey[800],
+                                          borderRadius:
+                                              BorderRadius.circular(10),
+                                        ),
+                                        child: Padding(
+                                          padding: const EdgeInsets.symmetric(
+                                            vertical: 10,
+                                            horizontal: 5,
+                                          ),
+                                          child: Column(
+                                            children: [
+                                              Icon(
+                                                Icons.leaderboard,
+                                                color: Colors.yellow[700],
+                                                size: 30,
+                                              ),
+                                              AutoSizeText(
+                                                "Comisiones",
+                                                style: TextStyle(
+                                                  fontWeight: FontWeight.bold,
+                                                  color: Colors.yellow[800],
+                                                ),
+                                              ),
+                                              AutoSizeText(
+                                                formatearMoneda(
+                                                    data["data"][
+                                                            "listSumaComisionesMountSol"]
+                                                        [index],
+                                                    "Sol"),
+                                              ),
+                                              AutoSizeText(
+                                                formatearMoneda(
+                                                    data["data"][
+                                                            "listSumaComisionesMountDolar"]
+                                                        [index],
+                                                    "Dólar"),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                  Column(
+                                    children: [
+                                      Container(
+                                        // height: 110,
+                                        width: 100,
+                                        decoration: BoxDecoration(
+                                          color: currentBrightness ==
+                                                  Brightness.light
+                                              ? Colors.grey[300]
+                                              : Colors.grey[800],
+                                          borderRadius:
+                                              BorderRadius.circular(10),
+                                        ),
+                                        child: Padding(
+                                          padding: const EdgeInsets.symmetric(
+                                            vertical: 10,
+                                            horizontal: 5,
+                                          ),
+                                          child: Column(
+                                            children: [
+                                              Icon(
+                                                Icons.money_off,
+                                                color: Colors.red[700],
+                                                size: 30,
+                                              ),
+                                              AutoSizeText(
+                                                "Gastos",
+                                                style: TextStyle(
+                                                  fontWeight: FontWeight.bold,
+                                                  color: Colors.red[800],
+                                                ),
+                                              ),
+                                              AutoSizeText(
+                                                formatearMoneda(
+                                                    data["data"][
+                                                            "listSumaGastosMountSol"]
+                                                        [index],
+                                                    "Sol"),
+                                              ),
+                                              AutoSizeText(
+                                                formatearMoneda(
+                                                    data["data"][
+                                                            "listSumaGastosMountDolar"]
+                                                        [index],
+                                                    "Dólar"),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  )
+                                ],
+                              )
+                            ],
+                          ),
                         ),
-                      ),
-                    );
-                  },
+                      );
+                    },
+                  ),
                 ),
               ),
             ),

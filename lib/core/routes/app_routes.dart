@@ -6,6 +6,7 @@ import 'package:legaltech_temis/views/home/home_view.dart';
 // import 'package:legaltech_temis/views/main_view.dart';
 import 'package:legaltech_temis/views/login/login_view.dart';
 import 'package:legaltech_temis/views/notificaciones/notificaciones_view.dart';
+import 'package:legaltech_temis/views/procesos/proceso_view.dart';
 import 'package:legaltech_temis/views/verify_auth_view.dart';
 
 T getArguments<T>(BuildContext context) {
@@ -21,5 +22,11 @@ Map<String, Widget Function(BuildContext)> get appRoutes {
     Routes.calendar: (context) => const CalendarView(),
     Routes.notificaciones: (context) => const NotificacionesView(),
     Routes.clientes: (context) => const ClientesView(),
+    Routes.procesos: (context) {
+      final idClient = getArguments<int>(context);
+      return ProcesoView(
+        idClient: idClient,
+      );
+    },
   };
 }

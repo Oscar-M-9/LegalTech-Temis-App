@@ -71,6 +71,8 @@ class ClienteService extends ChangeNotifier {
         },
       );
       final Map<String, dynamic> decodeResponse = json.decode(response.body);
+      clientesLoaded = true;
+      print(" ClienteLoaded -> ${clientesLoaded}");
       if (response.statusCode == 401 || response.statusCode == 422) {
         return {
           "status": false,
@@ -84,7 +86,6 @@ class ClienteService extends ChangeNotifier {
         final clientesJson = decodeResponse["clientes"];
         final List<Cliente> clientes = Cliente.fromJsonList(clientesJson);
         setClienteModel(clientes);
-        clientesLoaded = true;
         // return decodeResponse;
         return {
           "status": true,

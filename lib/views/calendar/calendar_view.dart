@@ -16,6 +16,7 @@ class CalendarView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final GlobalKey containerKey = GlobalKey();
     final calendarService = context.watch<CalendarService>();
     Brightness currentBrightness = Theme.of(context).brightness;
     // final jsonCompany = jsonDecode(Preferences.dataCompany);
@@ -26,138 +27,147 @@ class CalendarView extends StatelessWidget {
           "Calendario",
         ),
       ),
-      body: SingleChildScrollView(
-        child: Wrap(
-          children: [
-            SizedBox(
-              width: MediaQuery.of(context).size.width > 400
-                  ? MediaQuery.of(context).size.width * 0.5
-                  : MediaQuery.of(context).size.width,
-              child: Padding(
-                padding: const EdgeInsets.only(
-                  right: 10,
-                  left: 10,
-                  bottom: 10,
-                ),
-                child: TableCalendar<Evento>(
-                  firstDay: calendarService.firstDay,
-                  lastDay: calendarService.lastDay,
-                  focusedDay: calendarService.focusedDay,
-                  availableCalendarFormats: const {
-                    CalendarFormat.month: 'Mes',
-                    CalendarFormat.twoWeeks: "2 Semanas",
-                    CalendarFormat.week: "Semana",
-                  },
-                  selectedDayPredicate: (day) =>
-                      isSameDay(calendarService.selectedDay, day),
-                  rangeStartDay: calendarService.rangeStart,
-                  rangeEndDay: calendarService.rangeEnd,
-                  calendarFormat: calendarService.calendarFormat,
-                  rangeSelectionMode: calendarService.rangeSelectionMode,
-                  eventLoader: calendarService.getEventsForDay,
-                  startingDayOfWeek: StartingDayOfWeek.monday,
-                  calendarStyle: const CalendarStyle(
-                    markerDecoration: BoxDecoration(
-                      color: AppColors.secondary600,
-                      shape: BoxShape.circle,
-                    ),
-                    todayTextStyle: TextStyle(
-                      color: Color(0xFFFAFAFA),
-                      fontSize: 16.0,
-                    ),
-                    todayDecoration: BoxDecoration(
-                      color: AppColors.primary300,
-                      shape: BoxShape.rectangle,
-                      borderRadius: BorderRadius.all(
-                        Radius.circular(10),
-                      ),
-                    ),
-                    selectedTextStyle: TextStyle(
-                      color: Color(0xFFFAFAFA),
-                      fontSize: 16.0,
-                    ),
-                    selectedDecoration: BoxDecoration(
-                      color: AppColors.primary900,
-                      shape: BoxShape.rectangle,
-                      borderRadius: BorderRadius.all(
-                        Radius.circular(10),
-                      ),
-                    ),
-                    rangeStartTextStyle: TextStyle(
-                      color: Color(0xFFFAFAFA),
-                      fontSize: 16.0,
-                    ),
-                    rangeStartDecoration: BoxDecoration(
-                      color: AppColors.primary600,
-                      shape: BoxShape.rectangle,
-                      borderRadius: BorderRadius.all(
-                        Radius.circular(10),
-                      ),
-                    ),
-                    rangeEndTextStyle: TextStyle(
-                      color: Color(0xFFFAFAFA),
-                      fontSize: 16.0,
-                    ),
-                    rangeEndDecoration: BoxDecoration(
-                      color: AppColors.primary600,
-                      shape: BoxShape.rectangle,
-                      borderRadius: BorderRadius.all(
-                        Radius.circular(10),
-                      ),
-                    ),
-                    withinRangeTextStyle: TextStyle(),
-                    withinRangeDecoration:
-                        BoxDecoration(shape: BoxShape.rectangle),
-                    outsideTextStyle: TextStyle(color: Color(0xFFAEAEAE)),
-                    outsideDecoration: BoxDecoration(shape: BoxShape.rectangle),
-                    disabledTextStyle: TextStyle(color: Color(0xFFBFBFBF)),
-                    disabledDecoration:
-                        BoxDecoration(shape: BoxShape.rectangle),
-                    holidayTextStyle: TextStyle(color: Color(0xFF5C6BC0)),
-                    holidayDecoration: BoxDecoration(
-                      border: Border.fromBorderSide(BorderSide(
-                        color: Color(0xFF9FA8DA),
-                        width: 1.4,
-                      )),
-                      shape: BoxShape.rectangle,
-                    ),
-                    weekendTextStyle: TextStyle(
-                      color: Color(0xFF5A5A5A),
-                    ),
-                    weekendDecoration: BoxDecoration(
-                      shape: BoxShape.rectangle,
-                    ),
-                    weekNumberTextStyle: TextStyle(
-                      fontSize: 12,
-                      color: Color(0xFFBFBFBF),
-                    ),
-                    defaultTextStyle: TextStyle(),
-                    defaultDecoration: BoxDecoration(
-                      shape: BoxShape.rectangle,
-                    ),
-                    // Use `CalendarStyle` to customize the UI
-                    outsideDaysVisible: false,
+      body: Wrap(
+        children: [
+          SizedBox(
+            key: containerKey,
+            width: MediaQuery.of(context).orientation == Orientation.landscape
+                ? MediaQuery.of(context).size.width * 0.5
+                : MediaQuery.of(context).size.width,
+            child: Padding(
+              padding: const EdgeInsets.only(
+                right: 10,
+                left: 10,
+                bottom: 10,
+              ),
+              child: TableCalendar<Evento>(
+                firstDay: calendarService.firstDay,
+                lastDay: calendarService.lastDay,
+                focusedDay: calendarService.focusedDay,
+                availableCalendarFormats: const {
+                  CalendarFormat.month: 'Mes',
+                  CalendarFormat.twoWeeks: "2 Semanas",
+                  CalendarFormat.week: "Semana",
+                },
+                selectedDayPredicate: (day) =>
+                    isSameDay(calendarService.selectedDay, day),
+                rangeStartDay: calendarService.rangeStart,
+                rangeEndDay: calendarService.rangeEnd,
+                calendarFormat: calendarService.calendarFormat,
+                rangeSelectionMode: calendarService.rangeSelectionMode,
+                eventLoader: calendarService.getEventsForDay,
+                startingDayOfWeek: StartingDayOfWeek.monday,
+                calendarStyle: const CalendarStyle(
+                  markerDecoration: BoxDecoration(
+                    color: AppColors.secondary600,
+                    shape: BoxShape.circle,
                   ),
-                  onDaySelected: calendarService.onDaySelected,
-                  onRangeSelected: calendarService.onRangeSelected,
-                  onFormatChanged: (format) {
-                    if (calendarService.calendarFormat != format) {
-                      // setState(() {
-                      calendarService.setCalendarFormat(format);
-                      // });
-                    }
-                  },
-                  onPageChanged: (focusedDay) {
-                    calendarService.setFocusedDay(focusedDay);
-                  },
+                  todayTextStyle: TextStyle(
+                    color: Color(0xFFFAFAFA),
+                    fontSize: 16.0,
+                  ),
+                  todayDecoration: BoxDecoration(
+                    color: AppColors.primary300,
+                    shape: BoxShape.rectangle,
+                    borderRadius: BorderRadius.all(
+                      Radius.circular(10),
+                    ),
+                  ),
+                  selectedTextStyle: TextStyle(
+                    color: Color(0xFFFAFAFA),
+                    fontSize: 16.0,
+                  ),
+                  selectedDecoration: BoxDecoration(
+                    color: AppColors.primary900,
+                    shape: BoxShape.rectangle,
+                    borderRadius: BorderRadius.all(
+                      Radius.circular(10),
+                    ),
+                  ),
+                  rangeStartTextStyle: TextStyle(
+                    color: Color(0xFFFAFAFA),
+                    fontSize: 16.0,
+                  ),
+                  rangeStartDecoration: BoxDecoration(
+                    color: AppColors.primary600,
+                    shape: BoxShape.rectangle,
+                    borderRadius: BorderRadius.all(
+                      Radius.circular(10),
+                    ),
+                  ),
+                  rangeEndTextStyle: TextStyle(
+                    color: Color(0xFFFAFAFA),
+                    fontSize: 16.0,
+                  ),
+                  rangeEndDecoration: BoxDecoration(
+                    color: AppColors.primary600,
+                    shape: BoxShape.rectangle,
+                    borderRadius: BorderRadius.all(
+                      Radius.circular(10),
+                    ),
+                  ),
+                  withinRangeTextStyle: TextStyle(),
+                  withinRangeDecoration:
+                      BoxDecoration(shape: BoxShape.rectangle),
+                  outsideTextStyle: TextStyle(color: Color(0xFFAEAEAE)),
+                  outsideDecoration: BoxDecoration(shape: BoxShape.rectangle),
+                  disabledTextStyle: TextStyle(color: Color(0xFFBFBFBF)),
+                  disabledDecoration: BoxDecoration(shape: BoxShape.rectangle),
+                  holidayTextStyle: TextStyle(color: Color(0xFF5C6BC0)),
+                  holidayDecoration: BoxDecoration(
+                    border: Border.fromBorderSide(BorderSide(
+                      color: Color(0xFF9FA8DA),
+                      width: 1.4,
+                    )),
+                    shape: BoxShape.rectangle,
+                  ),
+                  weekendTextStyle: TextStyle(
+                    color: Color(0xFF5A5A5A),
+                  ),
+                  weekendDecoration: BoxDecoration(
+                    shape: BoxShape.rectangle,
+                  ),
+                  weekNumberTextStyle: TextStyle(
+                    fontSize: 12,
+                    color: Color(0xFFBFBFBF),
+                  ),
+                  defaultTextStyle: TextStyle(),
+                  defaultDecoration: BoxDecoration(
+                    shape: BoxShape.rectangle,
+                  ),
+                  // Use `CalendarStyle` to customize the UI
+                  outsideDaysVisible: false,
                 ),
+                onDaySelected: calendarService.onDaySelected,
+                onRangeSelected: calendarService.onRangeSelected,
+                onFormatChanged: (format) {
+                  if (calendarService.calendarFormat != format) {
+                    // setState(() {
+                    calendarService.setCalendarFormat(format);
+                    // });
+                  }
+                },
+                onPageChanged: (focusedDay) {
+                  calendarService.setFocusedDay(focusedDay);
+                },
               ),
             ),
-            const SizedBox(
-              height: 8.0,
-            ),
-            SizedBox(
-              width: MediaQuery.of(context).size.width > 400
+          ),
+          const SizedBox(
+            height: 8.0,
+          ),
+          LayoutBuilder(builder: (context, constraints) {
+            final screenHeight = MediaQuery.of(context).size.height;
+            final renderBox =
+                containerKey.currentContext?.findRenderObject() as RenderBox;
+            final remainingHeight = screenHeight -
+                renderBox.size.height -
+                8; // 8 es el espacio entre los widgets
+            final remainingHeightContainer = renderBox.size.height > 300.0
+                ? remainingHeight * 0.8
+                : remainingHeight * 0.85;
+            return SizedBox(
+              width: MediaQuery.of(context).orientation == Orientation.landscape
                   ? MediaQuery.of(context).size.width * 0.5
                   : MediaQuery.of(context).size.width,
               child: ValueListenableBuilder<List<Evento>>(
@@ -165,6 +175,10 @@ class CalendarView extends StatelessWidget {
                 builder: (context, value, _) {
                   return value.isNotEmpty
                       ? Container(
+                          height: MediaQuery.of(context).orientation ==
+                                  Orientation.landscape
+                              ? MediaQuery.of(context).size.height * 0.74
+                              : remainingHeightContainer,
                           margin: const EdgeInsets.symmetric(
                             vertical: 15,
                             horizontal: 10,
@@ -179,7 +193,7 @@ class CalendarView extends StatelessWidget {
                             padding: const EdgeInsets.symmetric(
                               vertical: 15,
                             ),
-                            physics: const NeverScrollableScrollPhysics(),
+                            // physics: const NeverScrollableScrollPhysics(),
                             shrinkWrap: true,
                             itemCount: value.length,
                             itemBuilder: (context, index) {
@@ -194,12 +208,6 @@ class CalendarView extends StatelessWidget {
                                                 Brightness.light
                                             ? Colors.white
                                             : Colors.grey[700],
-                                        // border: Border.all(
-                                        //   color: (currentBrightness == Brightness.light
-                                        //           ? Colors.grey[600]
-                                        //           : Colors.grey[400]) ??
-                                        //       AppColors.primary500,
-                                        // ),
                                         borderRadius:
                                             BorderRadius.circular(5.0),
                                       ),
@@ -219,60 +227,55 @@ class CalendarView extends StatelessWidget {
                                               ),
                                             ),
                                           ),
-                                          Expanded(
-                                            child: Padding(
-                                              padding: const EdgeInsets.only(
-                                                left: 10,
-                                                right: 10,
-                                                bottom: 5,
-                                                top: 5,
-                                              ),
-                                              child: Column(
-                                                crossAxisAlignment:
-                                                    CrossAxisAlignment.start,
-                                                children: [
-                                                  AutoSizeText(
-                                                    value[index].title ?? "",
-                                                    style: const TextStyle(
-                                                      fontWeight:
-                                                          FontWeight.w700,
-                                                    ),
+                                          Padding(
+                                            padding: const EdgeInsets.only(
+                                              left: 10,
+                                              right: 10,
+                                              bottom: 5,
+                                              top: 5,
+                                            ),
+                                            child: Column(
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
+                                              children: [
+                                                AutoSizeText(
+                                                  value[index].title ?? "",
+                                                  style: const TextStyle(
+                                                    fontWeight: FontWeight.w700,
                                                   ),
-                                                  const SizedBox(
-                                                    height: 6,
-                                                  ),
-                                                  AutoSizeText(
-                                                    DateFormat.yMEd('es_ES')
-                                                        .add_jms()
-                                                        .format(value[index]
-                                                                .fecha ??
-                                                            DateTime.now())
-                                                        .toString(),
-                                                    style: TextStyle(
-                                                        fontWeight:
-                                                            FontWeight.w400,
-                                                        color:
-                                                            currentBrightness ==
-                                                                    Brightness
-                                                                        .light
-                                                                ? Colors
-                                                                    .grey[400]
-                                                                : Colors
-                                                                    .grey[300]),
-                                                  ),
-                                                  const SizedBox(
-                                                    height: 6,
-                                                  ),
-                                                  AutoSizeText(
-                                                    value[index].description ??
-                                                        "",
-                                                    style: const TextStyle(
+                                                ),
+                                                const SizedBox(
+                                                  height: 6,
+                                                ),
+                                                AutoSizeText(
+                                                  DateFormat.yMEd('es_ES')
+                                                      .add_jms()
+                                                      .format(
+                                                          value[index].fecha ??
+                                                              DateTime.now())
+                                                      .toString(),
+                                                  style: TextStyle(
                                                       fontWeight:
                                                           FontWeight.w400,
-                                                    ),
+                                                      color:
+                                                          currentBrightness ==
+                                                                  Brightness
+                                                                      .light
+                                                              ? Colors.grey[400]
+                                                              : Colors
+                                                                  .grey[300]),
+                                                ),
+                                                const SizedBox(
+                                                  height: 6,
+                                                ),
+                                                AutoSizeText(
+                                                  value[index].description ??
+                                                      "",
+                                                  style: const TextStyle(
+                                                    fontWeight: FontWeight.w400,
                                                   ),
-                                                ],
-                                              ),
+                                                ),
+                                              ],
                                             ),
                                           ),
                                         ],
@@ -285,9 +288,9 @@ class CalendarView extends StatelessWidget {
                       : const SizedBox();
                 },
               ),
-            ),
-          ],
-        ),
+            );
+          }),
+        ],
       ),
     );
   }
