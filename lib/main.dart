@@ -10,6 +10,8 @@ import 'package:legaltech_temis/core/services/calendar_service.dart';
 import 'package:legaltech_temis/core/services/clientes_service.dart';
 import 'package:legaltech_temis/core/services/home_service.dart';
 import 'package:legaltech_temis/core/services/notification_service.dart';
+import 'package:legaltech_temis/core/services/proceso_calendar_service.dart';
+import 'package:legaltech_temis/core/services/procesos_detalle_service.dart';
 import 'package:legaltech_temis/core/services/proceso_service.dart';
 import 'package:legaltech_temis/core/services/snackbar_service.dart';
 import 'package:legaltech_temis/core/utils/app_colors.dart';
@@ -101,6 +103,12 @@ void main() async {
       ChangeNotifierProvider(
         create: (_) => ProcesoService(),
       ),
+      ChangeNotifierProvider(
+        create: (_) => ProcesoDetalleService(),
+      ),
+      ChangeNotifierProvider(
+        create: (_) => ProcesoCalendarService(),
+      ),
     ],
     child: const MyApp(),
   ));
@@ -116,8 +124,11 @@ class MyApp extends StatelessWidget {
       title: 'Temis',
       scaffoldMessengerKey: SnackbarCustomService.msgkey,
       theme: ThemeData(
+        fontFamily: 'Poppins',
+        scaffoldBackgroundColor: AppColors.baseColor,
         cardColor: CupertinoColors.systemGrey6,
         colorScheme: const ColorScheme.light(),
+        // colorScheme: ColorScheme.fromSeed(seedColor: AppColors.primary),
         visualDensity: VisualDensity.adaptivePlatformDensity,
         // textTheme: Typography.material2018().black,
         textTheme: const TextTheme(
@@ -161,10 +172,12 @@ class MyApp extends StatelessWidget {
       darkTheme: ThemeData(
         visualDensity: VisualDensity.adaptivePlatformDensity,
         useMaterial3: true,
+        // colorScheme: ColorScheme.fromSeed(seedColor: AppColors.secondary),
+        colorScheme: const ColorScheme.dark(),
         appBarTheme: AppBarTheme(
           centerTitle: true,
           surfaceTintColor: Colors.transparent,
-          backgroundColor: AppColors.primary950,
+          // backgroundColor: AppColors.primary950,
           foregroundColor: Colors.grey[200],
           titleTextStyle: const TextStyle(
             fontSize: 18,
@@ -172,7 +185,6 @@ class MyApp extends StatelessWidget {
             fontWeight: FontWeight.w600,
           ),
         ),
-        colorScheme: const ColorScheme.dark(),
         cardColor: CupertinoColors.systemGrey,
         textTheme: const TextTheme(
           labelMedium: TextStyle(

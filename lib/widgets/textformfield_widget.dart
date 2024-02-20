@@ -49,13 +49,13 @@ class TextFormFieldCustom extends StatelessWidget {
         overflow: TextOverflow.ellipsis,
       ),
       decoration: InputDecoration(
-        fillColor: const Color.fromRGBO(39, 52, 49, .15),
+        fillColor: Colors.grey.shade200,
         filled: true,
         hintText: hintText,
         contentPadding: const EdgeInsets.symmetric(vertical: 18),
         hintTextDirection: TextDirection.ltr,
         hintStyle: TextStyle(
-          color: Colors.grey.shade500,
+          color: Colors.grey.shade600,
           fontWeight: FontWeight.w400,
         ),
         prefixIcon: prefixIcon,

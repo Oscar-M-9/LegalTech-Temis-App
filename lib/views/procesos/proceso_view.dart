@@ -1,4 +1,5 @@
 import 'package:auto_size_text/auto_size_text.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:legaltech_temis/core/models/combined_procesos_model.dart';
@@ -6,6 +7,8 @@ import 'package:legaltech_temis/core/models/proceso_indecopi_model.dart';
 import 'package:legaltech_temis/core/models/proceso_judicial_model.dart';
 import 'package:legaltech_temis/core/models/proceso_sinoe_model.dart';
 import 'package:legaltech_temis/core/models/proceso_suprema_model.dart';
+import 'package:legaltech_temis/core/routes/routes.dart';
+import 'package:legaltech_temis/core/services/procesos_detalle_service.dart';
 import 'package:legaltech_temis/core/services/proceso_service.dart';
 import 'package:legaltech_temis/core/utils/app_colors.dart';
 import 'package:legaltech_temis/views/clientes/widgets/search_input_widget.dart';
@@ -48,7 +51,7 @@ class ProcesoView extends StatelessWidget {
         child: Column(
           children: [
             SearchInput(
-              hinText: 'Buscar por número de Proceso',
+              hinText: 'Buscar Proceso',
               prefixIcon: const Icon(Icons.search),
               onChanged: (value) {
                 if (procesoService.query != value) {
@@ -77,8 +80,8 @@ class ProcesoView extends StatelessWidget {
                   return const Expanded(
                     child: Center(
                       child: SizedBox(
-                        height: 100,
-                        width: 100,
+                        height: 80,
+                        width: 80,
                         child: LoadingIndicator(
                           indicatorType: Indicator.ballSpinFadeLoader,
                           colors: [
@@ -153,7 +156,7 @@ class ProcesoView extends StatelessWidget {
                 bottom: 20,
                 top: 10,
               ),
-              child: Wrap(spacing: 8.0, runSpacing: 5.0, children: [
+              child: Wrap(spacing: 8.0, runSpacing: 8.0, children: [
                 ...List.generate(
                   data.expedienteJudicial.length,
                   (index) {
@@ -242,7 +245,7 @@ class CardExpediente extends StatelessWidget {
           : MediaQuery.of(context).size.width * 0.92,
       decoration: BoxDecoration(
         color: currentBrightness == Brightness.light
-            ? Colors.grey.withOpacity(.1)
+            ? Colors.grey.shade50
             : Colors.grey.withOpacity(.1),
         borderRadius: BorderRadius.circular(5),
       ),
@@ -258,12 +261,37 @@ class CardExpediente extends StatelessWidget {
             ? AppColors.secondary200
             : AppColors.primary200,
         onTap: () {
-          // print(data.expedienteJudicial[index].id);
-          // Navigator.pushNamed(
-          //   context,
-          //   Routes.procesos,
-          //   arguments: data[index].id,
-          // );
+          final procesoJudicialService = context.read<ProcesoDetalleService>();
+          procesoJudicialService.data.clear();
+          procesoJudicialService.indexTab = 0;
+          // procesoJudicialService.isLastPage = false;
+          // procesoJudicialService.isLoading = false;
+          // procesoJudicialService.page = 1;
+          Navigator.pushNamed(
+            context,
+            Routes.detalleProceso,
+            arguments: {
+              "entidad": entidadProceso,
+              "exp": entidadProceso == "judicial"
+                  ? data.expedienteJudicial[index].id
+                  : entidadProceso == "suprema"
+                      ? data.expedienteSuprema[index].id
+                      : entidadProceso == "indecopi"
+                          ? data.expedienteIndecopi[index].id
+                          : entidadProceso == "sinoe"
+                              ? data.expedienteSinoe[index].id
+                              : "",
+              "nExp": entidadProceso == "judicial"
+                  ? data.expedienteJudicial[index].nExpediente
+                  : entidadProceso == "suprema"
+                      ? data.expedienteSuprema[index].nExpediente
+                      : entidadProceso == "indecopi"
+                          ? data.expedienteIndecopi[index].numero
+                          : entidadProceso == "sinoe"
+                              ? data.expedienteSinoe[index].nExpediente
+                              : "",
+            },
+          );
         },
         leading: CircleAvatar(
           // radius: 20,

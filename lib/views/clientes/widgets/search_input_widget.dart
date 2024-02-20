@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 class SearchInput extends StatelessWidget {
   final String hinText;
   final Widget prefixIcon;
+  final Widget? suffixIcon;
   final void Function(String)? onChanged;
   final TextEditingController? controller;
   const SearchInput({
@@ -10,6 +11,7 @@ class SearchInput extends StatelessWidget {
     required this.hinText,
     required this.prefixIcon,
     this.onChanged,
+    this.suffixIcon,
     this.controller,
   });
 
@@ -37,14 +39,15 @@ class SearchInput extends StatelessWidget {
         decoration: InputDecoration(
           contentPadding: const EdgeInsets.all(15),
           prefixIcon: prefixIcon,
+          suffixIcon: suffixIcon,
           hintText: hinText,
           hintStyle: const TextStyle(
-            fontWeight: FontWeight.normal,
-            fontStyle: FontStyle.italic,
+            fontWeight: FontWeight.w300,
+            fontStyle: FontStyle.normal,
           ),
           filled: true,
           fillColor: currentBrightness == Brightness.light
-              ? Colors.grey[100]
+              ? Colors.grey.shade200
               : Colors.grey[800],
           enabledBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(30),

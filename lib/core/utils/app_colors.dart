@@ -28,6 +28,7 @@ abstract class AppColors {
 
   static const Color black = Colors.black;
   static const Color white = Colors.white;
+  static const Color baseColor = Color(0xFFF7F7F7);
 
   static const Map<int, Color> color = {
     50: Color.fromRGBO(10, 46, 77, .1),

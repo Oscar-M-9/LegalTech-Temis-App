@@ -9,4 +9,7 @@ class Routes {
   static const home = '/home';
   static const clientes = '/clientes';
   static const procesos = '/clientes/procesos';
+  static const detalleProceso = '/clientes/procesos/detalle';
+  static const pdfView = '/clientes/procesos/detalle/pdfView';
+  static const videoView = '/clientes/procesos/detalle/videoView';
 }

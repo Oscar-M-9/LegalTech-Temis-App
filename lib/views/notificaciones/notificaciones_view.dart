@@ -1,7 +1,9 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:legaltech_temis/core/models/notification_model.dart';
+import 'package:legaltech_temis/core/routes/routes.dart';
 import 'package:legaltech_temis/core/services/notification_service.dart';
+import 'package:legaltech_temis/core/services/procesos_detalle_service.dart';
 import 'package:legaltech_temis/core/utils/app_colors.dart';
 import 'package:legaltech_temis/core/utils/funtions_util.dart';
 import 'package:loading_indicator/loading_indicator.dart';
@@ -28,8 +30,8 @@ class NotificacionesView extends StatelessWidget {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return const Center(
               child: SizedBox(
-                height: 100,
-                width: 100,
+                height: 80,
+                width: 80,
                 child: LoadingIndicator(
                   indicatorType: Indicator.ballSpinFadeLoader,
                   colors: [
@@ -145,8 +147,8 @@ class YesNotification extends StatelessWidget {
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(10),
             color: currentBrightness == Brightness.light
-                ? Colors.grey[100]
-                : Colors.grey[800],
+                ? Colors.white.withOpacity(.5)
+                : Colors.grey.shade900.withOpacity(.5),
           ),
           child: ListTile(
             style: ListTileStyle.list,
@@ -156,9 +158,31 @@ class YesNotification extends StatelessWidget {
               left: 16,
               bottom: 10,
             ),
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(10),
+            shape: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(5),
+              borderSide: const BorderSide(
+                style: BorderStyle.none,
+              ),
             ),
+            splashColor: currentBrightness == Brightness.light
+                ? AppColors.secondary200
+                : AppColors.primary200,
+            onTap: () {
+              // print(data.expedienteJudicial[index].id);
+              final procesoDetalleService =
+                  context.read<ProcesoDetalleService>();
+              procesoDetalleService.data.clear();
+              procesoDetalleService.indexTab = 0;
+              Navigator.pushNamed(
+                context,
+                Routes.detalleProceso,
+                arguments: {
+                  "entidad": notifi.data?[index].entidad,
+                  "exp": notifi.data?[index].idExp,
+                  "nExp": notifi.data?[index].expNExp,
+                },
+              );
+            },
             leading: CircleAvatar(
               // radius: 20,
               backgroundColor: currentBrightness == Brightness.light

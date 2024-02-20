@@ -23,6 +23,7 @@ class ClientesView extends StatelessWidget {
   Widget build(BuildContext context) {
     final clienteService = context.watch<ClienteService>();
     Brightness currentBrightness = Theme.of(context).brightness;
+
     return Scaffold(
       appBar: AppBar(
         title: const Text(
@@ -71,8 +72,8 @@ class ClientesView extends StatelessWidget {
                   return const Expanded(
                     child: Center(
                       child: SizedBox(
-                        height: 100,
-                        width: 100,
+                        height: 80,
+                        width: 80,
                         child: LoadingIndicator(
                           indicatorType: Indicator.ballSpinFadeLoader,
                           colors: [
@@ -145,7 +146,7 @@ class ClientesView extends StatelessWidget {
               ),
               child: Wrap(
                 spacing: 8.0,
-                runSpacing: 5.0,
+                runSpacing: 8.0,
                 children: List.generate(
                   data.length,
                   (index) {
@@ -159,7 +160,7 @@ class ClientesView extends StatelessWidget {
                           : MediaQuery.of(context).size.width * 0.92,
                       decoration: BoxDecoration(
                         color: currentBrightness == Brightness.light
-                            ? Colors.grey.withOpacity(.1)
+                            ? Colors.grey.shade50
                             : Colors.grey.withOpacity(.1),
                         borderRadius: BorderRadius.circular(5),
                       ),

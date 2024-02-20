@@ -29,15 +29,26 @@ class DrawerWidget extends StatelessWidget {
           currentBrightness == Brightness.light ? Colors.white : Colors.black,
       child: Column(
         children: [
-          DrawerHeader(
-            decoration: const BoxDecoration(
-              color: AppColors.primary,
+          Container(
+            height: 200,
+            decoration: BoxDecoration(
+              color: currentBrightness == Brightness.light
+                  ? AppColors.secondary300
+                  : AppColors.primary,
+              borderRadius: const BorderRadius.only(
+                bottomRight: Radius.circular(30),
+              ),
             ),
-            child: SizedBox(
+            child: Container(
               width: double.infinity,
               height: double.infinity,
+              margin: const EdgeInsets.symmetric(
+                horizontal: 15,
+                vertical: 20,
+              ),
               child: Column(
-                mainAxisAlignment: MainAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.end,
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   const CircleAvatar(
                     maxRadius: 35,
@@ -50,25 +61,29 @@ class DrawerWidget extends StatelessWidget {
                     ),
                   ),
                   const SizedBox(
-                    width: 15,
+                    height: 12,
                   ),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       AutoSizeText(
                         "${usuario.name}, ${usuario.lastname}",
-                        style: const TextStyle(
-                          color: Colors.white,
+                        style: TextStyle(
+                          color: currentBrightness == Brightness.light
+                              ? Colors.black87
+                              : Colors.white,
                           fontSize: 18,
-                          fontWeight: FontWeight.w500,
+                          fontWeight: FontWeight.w600,
                         ),
                       ),
                       AutoSizeText(
                         usuario.email,
-                        style: const TextStyle(
-                          color: Colors.white70,
+                        style: TextStyle(
+                          color: currentBrightness == Brightness.light
+                              ? Colors.black54
+                              : Colors.white70,
                           fontSize: 14,
-                          fontWeight: FontWeight.w300,
+                          fontWeight: FontWeight.w500,
                         ),
                       ),
                     ],
@@ -208,8 +223,8 @@ class DrawerWidget extends StatelessWidget {
                 bottom: 15,
               ),
               color: currentBrightness == Brightness.light
-                  ? Colors.red[700]
-                  : Colors.red[900],
+                  ? Colors.red.shade600
+                  : Colors.red.shade900,
               borderRadius: BorderRadius.circular(15),
               pressedOpacity: 0.7,
               child: Align(

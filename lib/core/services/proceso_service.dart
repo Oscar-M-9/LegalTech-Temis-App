@@ -200,7 +200,7 @@ class ProcesoService extends ChangeNotifier {
         return {
           "status": false,
           "message": decodeResponse["message"],
-          "data": null,
+          "data": [],
           "statusCode": response.statusCode,
         };
       }
@@ -223,7 +223,7 @@ class ProcesoService extends ChangeNotifier {
         return {
           "status": true,
           "message": decodeResponse["message"],
-          "data": decodeResponse["expedientes"],
+          "data": [],
           "totalExpedientes": decodeResponse["totalExpedientes"],
           "limitExpedientes": decodeResponse["limitExpedientes"],
           "statusCode": response.statusCode,
@@ -234,7 +234,7 @@ class ProcesoService extends ChangeNotifier {
       return {
         "status": false,
         "message": "Error en la solicitud $e",
-        "data": null,
+        "data": [],
         "totalExpedientes": 0,
         "limitExpedientes": null,
         "statusCode": 404,
@@ -245,7 +245,7 @@ class ProcesoService extends ChangeNotifier {
     return {
       "status": false,
       "message": "Error desconocido",
-      "data": null,
+      "data": [],
       "totalExpedientes": 0,
       "limitExpedientes": null,
       "statusCode": 404,
@@ -281,7 +281,7 @@ class ProcesoService extends ChangeNotifier {
         return {
           "status": false,
           "message": decodeResponse["message"],
-          "data": null,
+          "data": [],
           "statusCode": response.statusCode,
         };
       }
@@ -300,7 +300,7 @@ class ProcesoService extends ChangeNotifier {
         return {
           "status": true,
           "message": decodeResponse["message"],
-          "data": decodeResponse["expedientes"],
+          "data": [],
           "totalExpedientes": decodeResponse["totalExpedientes"],
           "limitExpedientes": decodeResponse["limitExpedientes"],
           "statusCode": response.statusCode,
@@ -311,7 +311,7 @@ class ProcesoService extends ChangeNotifier {
       return {
         "status": false,
         "message": "Error en la solicitud $e",
-        "data": null,
+        "data": [],
         "totalExpedientes": 0,
         "limitExpedientes": null,
         "statusCode": 404,
@@ -322,7 +322,7 @@ class ProcesoService extends ChangeNotifier {
     return {
       "status": false,
       "message": "Error desconocido",
-      "data": null,
+      "data": [],
       "totalExpedientes": 0,
       "limitExpedientes": null,
       "statusCode": 404,
@@ -358,7 +358,7 @@ class ProcesoService extends ChangeNotifier {
         return {
           "status": false,
           "message": decodeResponse["message"],
-          "data": null,
+          "data": [],
           "statusCode": response.statusCode,
         };
       }
@@ -377,7 +377,7 @@ class ProcesoService extends ChangeNotifier {
         return {
           "status": true,
           "message": decodeResponse["message"],
-          "data": decodeResponse["expedientes"],
+          "data": [],
           "totalExpedientes": decodeResponse["totalExpedientes"],
           "limitExpedientes": decodeResponse["limitExpedientes"],
           "statusCode": response.statusCode,
@@ -388,7 +388,7 @@ class ProcesoService extends ChangeNotifier {
       return {
         "status": false,
         "message": "Error en la solicitud $e",
-        "data": null,
+        "data": [],
         "totalExpedientes": 0,
         "limitExpedientes": null,
         "statusCode": 404,
@@ -399,7 +399,7 @@ class ProcesoService extends ChangeNotifier {
     return {
       "status": false,
       "message": "Error desconocido",
-      "data": null,
+      "data": [],
       "totalExpedientes": 0,
       "limitExpedientes": null,
       "statusCode": 404,
@@ -435,7 +435,7 @@ class ProcesoService extends ChangeNotifier {
         return {
           "status": false,
           "message": decodeResponse["message"],
-          "data": null,
+          "data": [],
           "statusCode": response.statusCode,
         };
       }
@@ -454,7 +454,7 @@ class ProcesoService extends ChangeNotifier {
         return {
           "status": true,
           "message": decodeResponse["message"],
-          "data": decodeResponse["expedientes"],
+          "data": [],
           "totalExpedientes": decodeResponse["totalExpedientes"],
           "limitExpedientes": decodeResponse["limitExpedientes"],
           "statusCode": response.statusCode,
@@ -465,7 +465,7 @@ class ProcesoService extends ChangeNotifier {
       return {
         "status": false,
         "message": "Error en la solicitud $e",
-        "data": null,
+        "data": [],
         "totalExpedientes": 0,
         "limitExpedientes": null,
         "statusCode": 404,
@@ -476,21 +476,10 @@ class ProcesoService extends ChangeNotifier {
     return {
       "status": false,
       "message": "Error desconocido",
-      "data": null,
+      "data": [],
       "totalExpedientes": 0,
       "limitExpedientes": null,
       "statusCode": 404,
     };
   }
-
-  // Future<Map<String, dynamic>> refreshClientes() async {
-  //   final data = await clientes();
-  //   notifyListeners();
-  //   return {
-  //     "status": true,
-  //     "message": data["message"],
-  //     "data": data["clientes"],
-  //     "statusCode": data["statusCode"],
-  //   };
-  // }
 }

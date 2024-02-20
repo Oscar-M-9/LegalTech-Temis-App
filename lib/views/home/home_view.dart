@@ -113,8 +113,8 @@ class HomeView extends StatelessWidget {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return const Center(
               child: SizedBox(
-                height: 100,
-                width: 100,
+                height: 80,
+                width: 80,
                 child: LoadingIndicator(
                   indicatorType: Indicator.ballSpinFadeLoader,
                   colors: [
@@ -155,7 +155,6 @@ class HomeView extends StatelessWidget {
 
   Widget _buildDataView(Map<String, dynamic> data, BuildContext context) {
     Brightness currentBrightness = Theme.of(context).brightness;
-    print(data);
     return data["status"] == true
         ? SingleChildScrollView(
             child: Center(
@@ -167,17 +166,21 @@ class HomeView extends StatelessWidget {
                   top: 10,
                 ),
                 child: Wrap(
-                  spacing: 10.0,
-                  runSpacing: 16.0,
+                  spacing: 14.0,
+                  runSpacing: 15.0,
                   children: List.generate(
                     data["data"]["namesProcesos"].length,
                     (index) {
                       return Container(
-                        width: 350,
+                        constraints: const BoxConstraints(minWidth: 350.0),
+                        width: MediaQuery.of(context).orientation ==
+                                Orientation.landscape
+                            ? MediaQuery.of(context).size.width * 0.4
+                            : MediaQuery.of(context).size.width * 0.9,
                         decoration: BoxDecoration(
                           color: currentBrightness == Brightness.light
-                              ? Colors.grey[200]
-                              : Colors.grey[900],
+                              ? Colors.white
+                              : Colors.grey.shade900,
                           borderRadius: BorderRadius.circular(10),
                         ),
                         child: Padding(
@@ -213,8 +216,9 @@ class HomeView extends StatelessWidget {
                                     ],
                                   ),
                                   Text(
-                                    data["data"]["listExpedientes"][index] > 999
-                                        ? "999+"
+                                    data["data"]["listExpedientes"][index] >
+                                            9999
+                                        ? "9999+"
                                         : "${data["data"]["listExpedientes"][index]}",
                                     style: const TextStyle(
                                       fontWeight: FontWeight.bold,
@@ -238,8 +242,8 @@ class HomeView extends StatelessWidget {
                                         decoration: BoxDecoration(
                                           color: currentBrightness ==
                                                   Brightness.light
-                                              ? Colors.grey[300]
-                                              : Colors.grey[800],
+                                              ? Colors.grey.shade100
+                                              : Colors.black26,
                                           borderRadius:
                                               BorderRadius.circular(10),
                                         ),
@@ -252,14 +256,20 @@ class HomeView extends StatelessWidget {
                                             children: [
                                               Icon(
                                                 Icons.attach_money,
-                                                color: Colors.green[700],
+                                                color: currentBrightness ==
+                                                        Brightness.light
+                                                    ? Colors.greenAccent
+                                                    : Colors.green,
                                                 size: 30,
                                               ),
                                               AutoSizeText(
                                                 "Ingresos",
                                                 style: TextStyle(
                                                   fontWeight: FontWeight.bold,
-                                                  color: Colors.green[800],
+                                                  color: currentBrightness ==
+                                                          Brightness.light
+                                                      ? Colors.greenAccent
+                                                      : Colors.green,
                                                 ),
                                               ),
                                               AutoSizeText(
@@ -290,8 +300,8 @@ class HomeView extends StatelessWidget {
                                         decoration: BoxDecoration(
                                           color: currentBrightness ==
                                                   Brightness.light
-                                              ? Colors.grey[300]
-                                              : Colors.grey[800],
+                                              ? Colors.grey.shade100
+                                              : Colors.black26,
                                           borderRadius:
                                               BorderRadius.circular(10),
                                         ),
@@ -304,14 +314,20 @@ class HomeView extends StatelessWidget {
                                             children: [
                                               Icon(
                                                 Icons.leaderboard,
-                                                color: Colors.yellow[700],
+                                                color: currentBrightness ==
+                                                        Brightness.light
+                                                    ? Colors.yellow[400]
+                                                    : Colors.yellow,
                                                 size: 30,
                                               ),
                                               AutoSizeText(
                                                 "Comisiones",
                                                 style: TextStyle(
                                                   fontWeight: FontWeight.bold,
-                                                  color: Colors.yellow[800],
+                                                  color: currentBrightness ==
+                                                          Brightness.light
+                                                      ? Colors.yellow[400]
+                                                      : Colors.yellow,
                                                 ),
                                               ),
                                               AutoSizeText(
@@ -342,8 +358,8 @@ class HomeView extends StatelessWidget {
                                         decoration: BoxDecoration(
                                           color: currentBrightness ==
                                                   Brightness.light
-                                              ? Colors.grey[300]
-                                              : Colors.grey[800],
+                                              ? Colors.grey.shade100
+                                              : Colors.black26,
                                           borderRadius:
                                               BorderRadius.circular(10),
                                         ),
@@ -356,14 +372,20 @@ class HomeView extends StatelessWidget {
                                             children: [
                                               Icon(
                                                 Icons.money_off,
-                                                color: Colors.red[700],
+                                                color: currentBrightness ==
+                                                        Brightness.light
+                                                    ? Colors.redAccent
+                                                    : Colors.red,
                                                 size: 30,
                                               ),
                                               AutoSizeText(
                                                 "Gastos",
                                                 style: TextStyle(
                                                   fontWeight: FontWeight.bold,
-                                                  color: Colors.red[800],
+                                                  color: currentBrightness ==
+                                                          Brightness.light
+                                                      ? Colors.redAccent
+                                                      : Colors.red,
                                                 ),
                                               ),
                                               AutoSizeText(

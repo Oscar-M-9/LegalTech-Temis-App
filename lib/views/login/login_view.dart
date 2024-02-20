@@ -131,7 +131,6 @@ class LoginView extends StatelessWidget {
                           ),
                           onPressed: () {
                             passwordVisibilityProvider.toggleVisibility();
-                            print("presionando icon eye");
                           },
                         ),
                         onChanged: (value) => loginProvider.password = value,

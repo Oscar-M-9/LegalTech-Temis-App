@@ -17,6 +17,7 @@ class CalendarView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final GlobalKey containerKey = GlobalKey();
+    final GlobalKey calendarKey = GlobalKey();
     final calendarService = context.watch<CalendarService>();
     Brightness currentBrightness = Theme.of(context).brightness;
     // final jsonCompany = jsonDecode(Preferences.dataCompany);
@@ -39,117 +40,128 @@ class CalendarView extends StatelessWidget {
                 right: 10,
                 left: 10,
                 bottom: 10,
+                top: 5,
               ),
-              child: TableCalendar<Evento>(
-                firstDay: calendarService.firstDay,
-                lastDay: calendarService.lastDay,
-                focusedDay: calendarService.focusedDay,
-                availableCalendarFormats: const {
-                  CalendarFormat.month: 'Mes',
-                  CalendarFormat.twoWeeks: "2 Semanas",
-                  CalendarFormat.week: "Semana",
-                },
-                selectedDayPredicate: (day) =>
-                    isSameDay(calendarService.selectedDay, day),
-                rangeStartDay: calendarService.rangeStart,
-                rangeEndDay: calendarService.rangeEnd,
-                calendarFormat: calendarService.calendarFormat,
-                rangeSelectionMode: calendarService.rangeSelectionMode,
-                eventLoader: calendarService.getEventsForDay,
-                startingDayOfWeek: StartingDayOfWeek.monday,
-                calendarStyle: const CalendarStyle(
-                  markerDecoration: BoxDecoration(
-                    color: AppColors.secondary600,
-                    shape: BoxShape.circle,
-                  ),
-                  todayTextStyle: TextStyle(
-                    color: Color(0xFFFAFAFA),
-                    fontSize: 16.0,
-                  ),
-                  todayDecoration: BoxDecoration(
-                    color: AppColors.primary300,
-                    shape: BoxShape.rectangle,
-                    borderRadius: BorderRadius.all(
-                      Radius.circular(10),
-                    ),
-                  ),
-                  selectedTextStyle: TextStyle(
-                    color: Color(0xFFFAFAFA),
-                    fontSize: 16.0,
-                  ),
-                  selectedDecoration: BoxDecoration(
-                    color: AppColors.primary900,
-                    shape: BoxShape.rectangle,
-                    borderRadius: BorderRadius.all(
-                      Radius.circular(10),
-                    ),
-                  ),
-                  rangeStartTextStyle: TextStyle(
-                    color: Color(0xFFFAFAFA),
-                    fontSize: 16.0,
-                  ),
-                  rangeStartDecoration: BoxDecoration(
-                    color: AppColors.primary600,
-                    shape: BoxShape.rectangle,
-                    borderRadius: BorderRadius.all(
-                      Radius.circular(10),
-                    ),
-                  ),
-                  rangeEndTextStyle: TextStyle(
-                    color: Color(0xFFFAFAFA),
-                    fontSize: 16.0,
-                  ),
-                  rangeEndDecoration: BoxDecoration(
-                    color: AppColors.primary600,
-                    shape: BoxShape.rectangle,
-                    borderRadius: BorderRadius.all(
-                      Radius.circular(10),
-                    ),
-                  ),
-                  withinRangeTextStyle: TextStyle(),
-                  withinRangeDecoration:
-                      BoxDecoration(shape: BoxShape.rectangle),
-                  outsideTextStyle: TextStyle(color: Color(0xFFAEAEAE)),
-                  outsideDecoration: BoxDecoration(shape: BoxShape.rectangle),
-                  disabledTextStyle: TextStyle(color: Color(0xFFBFBFBF)),
-                  disabledDecoration: BoxDecoration(shape: BoxShape.rectangle),
-                  holidayTextStyle: TextStyle(color: Color(0xFF5C6BC0)),
-                  holidayDecoration: BoxDecoration(
-                    border: Border.fromBorderSide(BorderSide(
-                      color: Color(0xFF9FA8DA),
-                      width: 1.4,
-                    )),
-                    shape: BoxShape.rectangle,
-                  ),
-                  weekendTextStyle: TextStyle(
-                    color: Color(0xFF5A5A5A),
-                  ),
-                  weekendDecoration: BoxDecoration(
-                    shape: BoxShape.rectangle,
-                  ),
-                  weekNumberTextStyle: TextStyle(
-                    fontSize: 12,
-                    color: Color(0xFFBFBFBF),
-                  ),
-                  defaultTextStyle: TextStyle(),
-                  defaultDecoration: BoxDecoration(
-                    shape: BoxShape.rectangle,
-                  ),
-                  // Use `CalendarStyle` to customize the UI
-                  outsideDaysVisible: false,
+              child: Container(
+                decoration: BoxDecoration(
+                  color: currentBrightness == Brightness.light
+                      ? AppColors.white
+                      : Colors.grey.shade900,
+                  borderRadius: BorderRadius.circular(10),
                 ),
-                onDaySelected: calendarService.onDaySelected,
-                onRangeSelected: calendarService.onRangeSelected,
-                onFormatChanged: (format) {
-                  if (calendarService.calendarFormat != format) {
-                    // setState(() {
-                    calendarService.setCalendarFormat(format);
-                    // });
-                  }
-                },
-                onPageChanged: (focusedDay) {
-                  calendarService.setFocusedDay(focusedDay);
-                },
+                child: TableCalendar<Evento>(
+                  key: calendarKey,
+                  firstDay: calendarService.firstDay,
+                  lastDay: calendarService.lastDay,
+                  focusedDay: calendarService.focusedDay,
+                  availableCalendarFormats: const {
+                    CalendarFormat.month: 'Mes',
+                    CalendarFormat.twoWeeks: "2 Semanas",
+                    CalendarFormat.week: "Semana",
+                  },
+                  selectedDayPredicate: (day) =>
+                      isSameDay(calendarService.selectedDay, day),
+                  rangeStartDay: calendarService.rangeStart,
+                  rangeEndDay: calendarService.rangeEnd,
+                  calendarFormat: calendarService.calendarFormat,
+                  rangeSelectionMode: calendarService.rangeSelectionMode,
+                  eventLoader: calendarService.getEventsForDay,
+                  startingDayOfWeek: StartingDayOfWeek.monday,
+                  calendarStyle: const CalendarStyle(
+                    markerDecoration: BoxDecoration(
+                      color: AppColors.secondary600,
+                      shape: BoxShape.circle,
+                    ),
+                    todayTextStyle: TextStyle(
+                      color: Color(0xFFFAFAFA),
+                      fontSize: 16.0,
+                    ),
+                    todayDecoration: BoxDecoration(
+                      color: AppColors.primary300,
+                      shape: BoxShape.rectangle,
+                      borderRadius: BorderRadius.all(
+                        Radius.circular(10),
+                      ),
+                    ),
+                    selectedTextStyle: TextStyle(
+                      color: Color(0xFFFAFAFA),
+                      fontSize: 16.0,
+                    ),
+                    selectedDecoration: BoxDecoration(
+                      color: AppColors.primary900,
+                      shape: BoxShape.rectangle,
+                      borderRadius: BorderRadius.all(
+                        Radius.circular(10),
+                      ),
+                    ),
+                    rangeStartTextStyle: TextStyle(
+                      color: Color(0xFFFAFAFA),
+                      fontSize: 16.0,
+                    ),
+                    rangeStartDecoration: BoxDecoration(
+                      color: AppColors.primary600,
+                      shape: BoxShape.rectangle,
+                      borderRadius: BorderRadius.all(
+                        Radius.circular(10),
+                      ),
+                    ),
+                    rangeEndTextStyle: TextStyle(
+                      color: Color(0xFFFAFAFA),
+                      fontSize: 16.0,
+                    ),
+                    rangeEndDecoration: BoxDecoration(
+                      color: AppColors.primary600,
+                      shape: BoxShape.rectangle,
+                      borderRadius: BorderRadius.all(
+                        Radius.circular(10),
+                      ),
+                    ),
+                    withinRangeTextStyle: TextStyle(),
+                    withinRangeDecoration:
+                        BoxDecoration(shape: BoxShape.rectangle),
+                    outsideTextStyle: TextStyle(color: Color(0xFFAEAEAE)),
+                    outsideDecoration: BoxDecoration(shape: BoxShape.rectangle),
+                    disabledTextStyle: TextStyle(color: Color(0xFFBFBFBF)),
+                    disabledDecoration:
+                        BoxDecoration(shape: BoxShape.rectangle),
+                    holidayTextStyle: TextStyle(color: Color(0xFF5C6BC0)),
+                    holidayDecoration: BoxDecoration(
+                      border: Border.fromBorderSide(BorderSide(
+                        color: Color(0xFF9FA8DA),
+                        width: 1.4,
+                      )),
+                      shape: BoxShape.rectangle,
+                    ),
+                    weekendTextStyle: TextStyle(
+                      color: Color(0xFF5A5A5A),
+                    ),
+                    weekendDecoration: BoxDecoration(
+                      shape: BoxShape.rectangle,
+                    ),
+                    weekNumberTextStyle: TextStyle(
+                      fontSize: 12,
+                      color: Color(0xFFBFBFBF),
+                    ),
+                    defaultTextStyle: TextStyle(),
+                    defaultDecoration: BoxDecoration(
+                      shape: BoxShape.rectangle,
+                    ),
+                    // Use `CalendarStyle` to customize the UI
+                    outsideDaysVisible: false,
+                  ),
+                  onDaySelected: calendarService.onDaySelected,
+                  onRangeSelected: calendarService.onRangeSelected,
+                  onFormatChanged: (format) {
+                    if (calendarService.calendarFormat != format) {
+                      // setState(() {
+                      calendarService.setCalendarFormat(format);
+                      // });
+                    }
+                  },
+                  onPageChanged: (focusedDay) {
+                    calendarService.setFocusedDay(focusedDay);
+                  },
+                ),
               ),
             ),
           ),
@@ -164,8 +176,8 @@ class CalendarView extends StatelessWidget {
                 renderBox.size.height -
                 8; // 8 es el espacio entre los widgets
             final remainingHeightContainer = renderBox.size.height > 300.0
-                ? remainingHeight * 0.8
-                : remainingHeight * 0.85;
+                ? remainingHeight * 0.72
+                : remainingHeight * 0.8;
             return SizedBox(
               width: MediaQuery.of(context).orientation == Orientation.landscape
                   ? MediaQuery.of(context).size.width * 0.5
@@ -186,8 +198,8 @@ class CalendarView extends StatelessWidget {
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(10),
                             color: currentBrightness == Brightness.light
-                                ? Colors.grey[300]
-                                : Colors.grey[800],
+                                ? Colors.grey.shade200
+                                : Colors.grey.shade900,
                           ),
                           child: ListView.builder(
                             padding: const EdgeInsets.symmetric(
@@ -207,7 +219,7 @@ class CalendarView extends StatelessWidget {
                                         color: currentBrightness ==
                                                 Brightness.light
                                             ? Colors.white
-                                            : Colors.grey[700],
+                                            : Colors.black26,
                                         borderRadius:
                                             BorderRadius.circular(5.0),
                                       ),
@@ -285,7 +297,28 @@ class CalendarView extends StatelessWidget {
                             },
                           ),
                         )
-                      : const SizedBox();
+                      : Container(
+                          height: MediaQuery.of(context).orientation ==
+                                  Orientation.landscape
+                              ? MediaQuery.of(context).size.height * 0.58
+                              : remainingHeightContainer,
+                          margin: const EdgeInsets.symmetric(
+                            vertical: 15,
+                            horizontal: 10,
+                          ),
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              Text(
+                                "No se encontraron eventos",
+                                style: TextStyle(
+                                  color: Colors.grey.shade500,
+                                ),
+                              ),
+                            ],
+                          ),
+                        );
                 },
               ),
             );
