@@ -91,8 +91,15 @@ class ClientesView extends StatelessWidget {
                     ),
                   );
                 } else if (snapshot.hasError) {
-                  return Center(
-                    child: Text("Error: ${snapshot.error}"),
+                  return const Expanded(
+                    child: Center(
+                      child: Text(
+                        "Ocurrió un error inesperado",
+                        style: TextStyle(
+                          color: Colors.black54,
+                        ),
+                      ),
+                    ),
                   );
                 } else if (snapshot.hasData) {
                   Map<String, dynamic> data = snapshot.data!;
@@ -103,7 +110,6 @@ class ClientesView extends StatelessWidget {
                             message: data["message"],
                             onPressed: () async {
                               clienteService.clientesLoaded = false;
-                              print("🤣 ${clienteService.clientesLoaded}");
                             },
                           ),
                         )
@@ -145,7 +151,7 @@ class ClientesView extends StatelessWidget {
                 top: 10,
               ),
               child: Wrap(
-                spacing: 8.0,
+                spacing: 15.0,
                 runSpacing: 8.0,
                 children: List.generate(
                   data.length,
@@ -154,6 +160,8 @@ class ClientesView extends StatelessWidget {
                         data[index].typeContact == "Empresa" ? true : false;
                     final email = jsonDecode(data[index].email ?? "");
                     return Container(
+                      constraints: const BoxConstraints(
+                          minWidth: 350.0, maxWidth: 450.0),
                       width: MediaQuery.of(context).orientation ==
                               Orientation.landscape
                           ? MediaQuery.of(context).size.width * 0.46
@@ -175,7 +183,6 @@ class ClientesView extends StatelessWidget {
                             ? AppColors.secondary200
                             : AppColors.primary200,
                         onTap: () {
-                          print(data[index].id);
                           final pService = context.read<ProcesoService>();
                           pService.query = "";
                           pService.procesoLoaded = false;

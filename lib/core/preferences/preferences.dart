@@ -7,6 +7,8 @@ class Preferences {
   static String _user = '';
   static String _dataCompany = '';
   static String _dataSuscripcion = '';
+  static int _countNoti = 0;
+  static int _idUltNoti = 0;
 
   static Future init() async {
     _prefs = await SharedPreferences.getInstance();
@@ -52,5 +54,26 @@ class Preferences {
   static set dataSuscripcion(String dataSuscripcion) {
     _dataSuscripcion = dataSuscripcion;
     _prefs.setString('dataSuscripcion', dataSuscripcion);
+  }
+
+  // * cantidad de notificaciones
+
+  static int get countNoti {
+    return _prefs.getInt('countNoti') ?? _countNoti;
+  }
+
+  static set countNoti(int countNoti) {
+    _countNoti = countNoti;
+    _prefs.setInt('countNoti', countNoti);
+  }
+  // * id de la ultima notificacion
+
+  static int get idUltNoti {
+    return _prefs.getInt('idUltNoti') ?? _idUltNoti;
+  }
+
+  static set idUltNoti(int idUltNoti) {
+    _idUltNoti = idUltNoti;
+    _prefs.setInt('idUltNoti', idUltNoti);
   }
 }

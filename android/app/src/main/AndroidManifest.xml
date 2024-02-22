@@ -3,8 +3,31 @@
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
     <uses-permission android:name="android.permission.USE_EXACT_ALARM" />
     <uses-permission android:name="android.permission.USE_FULL_SCREEN_INTENT" />
+    <uses-permission android:name="com.android.launcher.permission.READ_SETTINGS" />
+    <uses-permission android:name="com.sec.android.provider.badge.permission.READ" />
+    <uses-permission android:name="com.sec.android.provider.badge.permission.WRITE" />
+    <uses-permission android:name="com.htc.launcher.permission.READ_SETTINGS" />
+    <uses-permission android:name="com.htc.launcher.permission.UPDATE_SHORTCUT" />
+    <uses-permission android:name="com.sonyericsson.home.permission.BROADCAST_BADGE" />
+    <uses-permission android:name="com.sonymobile.home.permission.PROVIDER_INSERT_BADGE" />
+    <uses-permission android:name="com.anddoes.launcher.permission.UPDATE_COUNT" />
+    <uses-permission android:name="com.majeur.launcher.permission.UPDATE_BADGE" />
+    <uses-permission android:name="com.huawei.android.launcher.permission.CHANGE_BADGE" />
+    <uses-permission android:name="com.huawei.android.launcher.permission.READ_SETTINGS" />
+    <uses-permission android:name="com.huawei.android.launcher.permission.WRITE_SETTINGS" />
+    <uses-permission android:name="android.permission.READ_APP_BADGE" />
+    <uses-permission android:name="android.permission.WRITE_APP_BADGE" />
+
+
+    <meta-data
+    android:name="firebase_messaging_auto_init_enabled"
+    android:value="false" />
+    <meta-data
+        android:name="firebase_analytics_collection_enabled"
+        android:value="false" />
+
     <application
-        android:label="legaltech_temis"
+        android:label="LegalTech Temis"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <!--  -->

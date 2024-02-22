@@ -136,7 +136,16 @@ class _InfiniteScrollPaginationState
           );
         } else if (snapshot.hasError) {
           // Handle errors
-          return Center(child: Text('Error: ${snapshot.error}'));
+          return const Expanded(
+            child: Center(
+              child: Text(
+                "Ocurrió un error inesperado",
+                style: TextStyle(
+                  color: Colors.black54,
+                ),
+              ),
+            ),
+          );
         } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
           // Display a message when there is no data
           return const Center(child: Text('No data available.'));

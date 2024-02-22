@@ -35,7 +35,6 @@ class ClienteService extends ChangeNotifier {
   }
 
   List<Cliente> getFilteredItems(String query) {
-    print("query => ${query}");
     return _clienteModel.where((item) {
       if (item.typeContact == "Empresa") {
         return item.nameCompany!.toLowerCase().contains(query.toLowerCase());
@@ -72,7 +71,6 @@ class ClienteService extends ChangeNotifier {
       );
       final Map<String, dynamic> decodeResponse = json.decode(response.body);
       clientesLoaded = true;
-      print(" ClienteLoaded -> ${clientesLoaded}");
       if (response.statusCode == 401 || response.statusCode == 422) {
         return {
           "status": false,

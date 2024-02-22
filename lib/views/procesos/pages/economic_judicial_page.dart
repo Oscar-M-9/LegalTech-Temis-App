@@ -115,8 +115,15 @@ class EconomicJudicialPage extends StatelessWidget {
                     ),
                   );
                 } else if (snapshot.hasError) {
-                  return Center(
-                    child: Text("Error: ${snapshot.error}"),
+                  return const Expanded(
+                    child: Center(
+                      child: Text(
+                        "Ocurrió un error inesperado",
+                        style: TextStyle(
+                          color: Colors.black54,
+                        ),
+                      ),
+                    ),
                   );
                 } else if (snapshot.hasData) {
                   List<Map<String, dynamic>> data = snapshot.data!;

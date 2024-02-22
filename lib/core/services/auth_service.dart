@@ -78,7 +78,7 @@ class AuthService extends ChangeNotifier {
 
       return decodeResponse['message'];
     } catch (error) {
-      print('Error en la solicitud: $error');
+      // print('Error en la solicitud: $error');
       return "Ocurrió un error durante el inicio de sesión";
     }
   }
@@ -119,13 +119,13 @@ class AuthService extends ChangeNotifier {
         return "La sesión se ha cerrado correctamente";
       } else {
         // Manejo de errores, puedes imprimir información detallada del error en consola
-        print('Error en la solicitud: ${response.statusCode}');
-        print('Cuerpo de la respuesta: ${response.body}');
+        // print('Error en la solicitud: ${response.statusCode}');
+        // print('Cuerpo de la respuesta: ${response.body}');
         return null;
       }
     } catch (error) {
       // Manejo de errores de red u otros
-      print('Error en la solicitud: $error');
+      // print('Error en la solicitud: $error');
       return null;
     }
   }

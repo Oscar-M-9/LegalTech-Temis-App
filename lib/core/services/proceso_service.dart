@@ -193,9 +193,6 @@ class ProcesoService extends ChangeNotifier {
         },
       );
       final Map<String, dynamic> decodeResponse = json.decode(response.body);
-      // procesoLoaded = true;
-      // print(" procesoLoaded -> ${procesoLoaded}");
-      // print("status => ${decodeResponse["expedientes"]}");
       if (response.statusCode == 401 || response.statusCode == 422) {
         return {
           "status": false,
@@ -230,7 +227,6 @@ class ProcesoService extends ChangeNotifier {
         };
       }
     } catch (e) {
-      // print('Error en la solicitud: $e');
       return {
         "status": false,
         "message": "Error en la solicitud $e",
@@ -307,7 +303,6 @@ class ProcesoService extends ChangeNotifier {
         };
       }
     } catch (e) {
-      // print('Error en la solicitud: $e');
       return {
         "status": false,
         "message": "Error en la solicitud $e",
@@ -384,7 +379,6 @@ class ProcesoService extends ChangeNotifier {
         };
       }
     } catch (e) {
-      // print('Error en la solicitud: $e');
       return {
         "status": false,
         "message": "Error en la solicitud $e",
@@ -461,7 +455,6 @@ class ProcesoService extends ChangeNotifier {
         };
       }
     } catch (e) {
-      // print('Error en la solicitud: $e');
       return {
         "status": false,
         "message": "Error en la solicitud $e",

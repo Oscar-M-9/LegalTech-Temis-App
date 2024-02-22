@@ -46,6 +46,7 @@ class _CalendarProcesoPageState extends State<CalendarProcesoPage> {
     Brightness currentBrightness = Theme.of(context).brightness;
     // final jsonCompany = jsonDecode(Preferences.dataCompany);
     // final Company company = Company.fromJson(jsonCompany);
+
     return Wrap(
       children: [
         SizedBox(
@@ -221,10 +222,11 @@ class _CalendarProcesoPageState extends State<CalendarProcesoPage> {
                                       vertical: 4.0,
                                     ),
                                     decoration: BoxDecoration(
-                                      color:
-                                          currentBrightness == Brightness.light
-                                              ? Colors.white
-                                              : Colors.black26,
+                                      // color:
+                                      //     currentBrightness == Brightness.light
+                                      //         ? Colors.white
+                                      //         : Colors.black26,
+                                      color: AppColors.secondary600,
                                       borderRadius: BorderRadius.circular(5.0),
                                     ),
                                     child: Row(
@@ -232,61 +234,85 @@ class _CalendarProcesoPageState extends State<CalendarProcesoPage> {
                                         Container(
                                           width: 7,
                                           // height: 100,
-                                          constraints: const BoxConstraints(
-                                            minHeight: 100,
-                                          ),
+                                          // constraints: const BoxConstraints(
+                                          //   minHeight: 100,
+                                          // ),
                                           decoration: const BoxDecoration(
-                                            color: AppColors.secondary600,
+                                            color: Colors.transparent,
                                             borderRadius: BorderRadius.only(
                                               topLeft: Radius.circular(3),
                                               bottomLeft: Radius.circular(3),
                                             ),
                                           ),
                                         ),
-                                        Padding(
-                                          padding: const EdgeInsets.only(
-                                            left: 10,
-                                            right: 10,
-                                            bottom: 5,
-                                            top: 5,
-                                          ),
-                                          child: Column(
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
-                                            children: [
-                                              AutoSizeText(
-                                                value[index].title ?? "",
-                                                style: const TextStyle(
-                                                  fontWeight: FontWeight.w700,
-                                                ),
+                                        Flexible(
+                                          child: Container(
+                                            width: double.infinity,
+                                            decoration: BoxDecoration(
+                                              color: currentBrightness ==
+                                                      Brightness.light
+                                                  ? Colors.white
+                                                  : Colors.black26,
+                                              borderRadius:
+                                                  const BorderRadius.only(
+                                                topRight: Radius.circular(3),
+                                                bottomRight: Radius.circular(3),
                                               ),
-                                              const SizedBox(
-                                                height: 6,
+                                            ),
+                                            child: Padding(
+                                              padding: const EdgeInsets.only(
+                                                left: 10,
+                                                right: 10,
+                                                bottom: 5,
+                                                top: 5,
                                               ),
-                                              AutoSizeText(
-                                                DateFormat.yMEd('es_ES')
-                                                    .add_jms()
-                                                    .format(
-                                                        value[index].fecha ??
+                                              child: Column(
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.start,
+                                                children: [
+                                                  AutoSizeText(
+                                                    value[index].title ?? "",
+                                                    style: const TextStyle(
+                                                      fontWeight:
+                                                          FontWeight.w700,
+                                                    ),
+                                                  ),
+                                                  const SizedBox(
+                                                    height: 6,
+                                                  ),
+                                                  AutoSizeText(
+                                                    DateFormat.yMEd('es_ES')
+                                                        .add_jms()
+                                                        .format(value[index]
+                                                                .fecha ??
                                                             DateTime.now())
-                                                    .toString(),
-                                                style: TextStyle(
-                                                    fontWeight: FontWeight.w400,
-                                                    color: currentBrightness ==
-                                                            Brightness.light
-                                                        ? Colors.grey[400]
-                                                        : Colors.grey[300]),
+                                                        .toString(),
+                                                    style: TextStyle(
+                                                        fontWeight:
+                                                            FontWeight.w400,
+                                                        color:
+                                                            currentBrightness ==
+                                                                    Brightness
+                                                                        .light
+                                                                ? Colors
+                                                                    .grey[400]
+                                                                : Colors
+                                                                    .grey[300]),
+                                                  ),
+                                                  const SizedBox(
+                                                    height: 6,
+                                                  ),
+                                                  AutoSizeText(
+                                                    value[index].description ??
+                                                        "",
+                                                    style: const TextStyle(
+                                                      fontWeight:
+                                                          FontWeight.w400,
+                                                    ),
+                                                  ),
+                                                ],
                                               ),
-                                              const SizedBox(
-                                                height: 6,
-                                              ),
-                                              AutoSizeText(
-                                                value[index].description ?? "",
-                                                style: const TextStyle(
-                                                  fontWeight: FontWeight.w400,
-                                                ),
-                                              ),
-                                            ],
+                                            ),
                                           ),
                                         ),
                                       ],

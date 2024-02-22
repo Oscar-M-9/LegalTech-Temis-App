@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:legaltech_temis/core/preferences/preferences.dart';
 import 'package:legaltech_temis/core/routes/routes.dart';
 import 'package:legaltech_temis/core/services/calendar_service.dart';
 import 'package:provider/provider.dart';
@@ -29,14 +30,10 @@ class AppBarActionsWidget extends StatelessWidget {
           },
           icon: badges.Badge(
             position: badges.BadgePosition.topEnd(top: -10, end: -12),
-            showBadge: true,
+            showBadge: Preferences.countNoti > 0 ? true : false,
             ignorePointer: false,
-            // onTap: () {
-            //   print("Notificaciones");
-            //   Navigator.pushNamed(context, Routes.notificaciones);
-            // },
             badgeContent: const Text(
-              "1",
+              "",
               style: TextStyle(
                 fontSize: 10,
                 fontWeight: FontWeight.w600,

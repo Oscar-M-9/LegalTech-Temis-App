@@ -78,7 +78,6 @@ class ProcesoCalendarService extends ChangeNotifier {
         // };
       }
     } catch (e) {
-      // print('Error en la solicitud: $e');
       return {
         "status": false,
         "message": "Error en la solicitud $e",

@@ -171,8 +171,6 @@ class SettingsView extends StatelessWidget {
                 ),
               ),
               onPressed: () async {
-                print("cerrar sesion");
-
                 final authService = context.read<AuthService>();
                 final String? message = await authService.logout();
                 if (message == null) {

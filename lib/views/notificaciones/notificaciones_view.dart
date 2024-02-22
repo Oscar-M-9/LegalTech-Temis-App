@@ -16,6 +16,7 @@ class NotificacionesView extends StatelessWidget {
   Widget build(BuildContext context) {
     Brightness currentBrightness = Theme.of(context).brightness;
     final notificationService = context.watch<NotificationService>();
+    final notify = notificationService.notification();
     // final res = await notificationService.notification;
     // final notifi = NotificationAll.fromJson(res);
     return Scaffold(
@@ -25,7 +26,7 @@ class NotificacionesView extends StatelessWidget {
         ),
       ),
       body: FutureBuilder<Map<String, dynamic>>(
-        future: notificationService.notification(),
+        future: notify,
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return const Center(
@@ -48,8 +49,15 @@ class NotificacionesView extends StatelessWidget {
               ),
             );
           } else if (snapshot.hasError) {
-            return Center(
-              child: Text("Error: ${snapshot.error}"),
+            return const Expanded(
+              child: Center(
+                child: Text(
+                  "Ocurrió un error inesperado",
+                  style: TextStyle(
+                    color: Colors.black54,
+                  ),
+                ),
+              ),
             );
           } else if (snapshot.hasData) {
             Map<String, dynamic> data = snapshot.data!;
@@ -134,91 +142,112 @@ class YesNotification extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final notifi = NotificationAll.fromJson(data);
-    return ListView.builder(
-      itemCount: notifi.data?.length,
-      itemBuilder: (context, index) {
-        return Container(
-          margin: const EdgeInsets.only(
-            bottom: 10,
-            right: 10,
-            left: 10,
-          ),
-          width: double.infinity,
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(10),
-            color: currentBrightness == Brightness.light
-                ? Colors.white.withOpacity(.5)
-                : Colors.grey.shade900.withOpacity(.5),
-          ),
-          child: ListTile(
-            style: ListTileStyle.list,
-            contentPadding: const EdgeInsets.only(
-              top: 5,
-              right: 16,
-              left: 16,
-              bottom: 10,
-            ),
-            shape: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(5),
-              borderSide: const BorderSide(
-                style: BorderStyle.none,
-              ),
-            ),
-            splashColor: currentBrightness == Brightness.light
-                ? AppColors.secondary200
-                : AppColors.primary200,
-            onTap: () {
-              // print(data.expedienteJudicial[index].id);
-              final procesoDetalleService =
-                  context.read<ProcesoDetalleService>();
-              procesoDetalleService.data.clear();
-              procesoDetalleService.indexTab = 0;
-              Navigator.pushNamed(
-                context,
-                Routes.detalleProceso,
-                arguments: {
-                  "entidad": notifi.data?[index].entidad,
-                  "exp": notifi.data?[index].idExp,
-                  "nExp": notifi.data?[index].expNExp,
-                },
+    return notifi.data!.isNotEmpty
+        ? ListView.builder(
+            itemCount: notifi.data?.length,
+            itemBuilder: (context, index) {
+              return Container(
+                margin: const EdgeInsets.only(
+                  bottom: 10,
+                  right: 10,
+                  left: 10,
+                ),
+                width: double.infinity,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(10),
+                  color: currentBrightness == Brightness.light
+                      ? Colors.white.withOpacity(.5)
+                      : Colors.grey.shade900.withOpacity(.5),
+                ),
+                child: ListTile(
+                  style: ListTileStyle.list,
+                  contentPadding: const EdgeInsets.only(
+                    top: 5,
+                    right: 16,
+                    left: 16,
+                    bottom: 10,
+                  ),
+                  shape: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(5),
+                    borderSide: const BorderSide(
+                      style: BorderStyle.none,
+                    ),
+                  ),
+                  splashColor: currentBrightness == Brightness.light
+                      ? AppColors.secondary200
+                      : AppColors.primary200,
+                  onTap: () async {
+                    final procesoDetalleService =
+                        context.read<ProcesoDetalleService>();
+                    procesoDetalleService.data.clear();
+                    procesoDetalleService.indexTab = 0;
+                    final notiService = context.read<NotificationService>();
+
+                    await notiService
+                        .notificationUpdate(notifi.data?[index].idHistory ?? 0);
+
+                    // ignore: use_build_context_synchronously
+                    Navigator.pushReplacementNamed(
+                      context,
+                      Routes.detalleProceso,
+                      arguments: {
+                        "entidad": notifi.data?[index].entidad,
+                        "exp": notifi.data?[index].idExp,
+                        "nExp": notifi.data?[index].expNExp,
+                      },
+                    );
+                  },
+                  leading: CircleAvatar(
+                    // radius: 20,
+                    backgroundColor: currentBrightness == Brightness.light
+                        ? AppColors.secondary600.withOpacity(.4)
+                        : AppColors.secondary400.withOpacity(.5),
+                    child: Container(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Image(
+                        image: getImageForEntity(
+                            notifi.data?[index].entidad ?? ""),
+                        width: 100,
+                        height: 100,
+                      ),
+                    ),
+                  ),
+                  title: Text(
+                    notifi.data?[index].expNExp ?? "",
+                    style: TextStyle(
+                      fontWeight: FontWeight.w500,
+                      color: currentBrightness == Brightness.light
+                          ? Colors.black
+                          : Colors.grey[300],
+                    ),
+                  ),
+                  subtitle: Text(
+                    capitalize(notifi.data?[index].moviAccionRealizada ?? ""),
+                    style: TextStyle(
+                      color: currentBrightness == Brightness.light
+                          ? Colors.black54
+                          : Colors.grey[400],
+                      fontStyle: FontStyle.normal,
+                    ),
+                  ),
+                ),
               );
             },
-            leading: CircleAvatar(
-              // radius: 20,
-              backgroundColor: currentBrightness == Brightness.light
-                  ? AppColors.secondary600.withOpacity(.4)
-                  : AppColors.secondary400.withOpacity(.5),
-              child: Container(
-                padding: const EdgeInsets.all(8.0),
-                child: Image(
-                  image: getImageForEntity(notifi.data?[index].entidad ?? ""),
-                  width: 100,
-                  height: 100,
+          )
+        : Center(
+            child: Padding(
+              padding: EdgeInsets.symmetric(
+                  horizontal: MediaQuery.of(context).size.width * 0.15),
+              child: const Text(
+                "Todo bien por aquí, no tienes ninguna notificacion :)",
+                style: TextStyle(
+                  color: Colors.black54,
+                  fontSize: 18,
                 ),
+                textAlign: TextAlign.center,
               ),
             ),
-            title: Text(
-              notifi.data?[index].expNExp ?? "",
-              style: TextStyle(
-                fontWeight: FontWeight.w500,
-                color: currentBrightness == Brightness.light
-                    ? Colors.black
-                    : Colors.grey[300],
-              ),
-            ),
-            subtitle: Text(
-              capitalize(notifi.data?[index].moviAccionRealizada ?? ""),
-              style: TextStyle(
-                color: currentBrightness == Brightness.light
-                    ? Colors.black54
-                    : Colors.grey[400],
-                fontStyle: FontStyle.normal,
-              ),
-            ),
-          ),
-        );
-      },
-    );
+          );
   }
 }
 

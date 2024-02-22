@@ -131,8 +131,15 @@ class HomeView extends StatelessWidget {
               ),
             );
           } else if (snapshot.hasError) {
-            return Center(
-              child: Text("Error: ${snapshot.error}"),
+            return const Expanded(
+              child: Center(
+                child: Text(
+                  "Ocurrió un error inesperado",
+                  style: TextStyle(
+                    color: Colors.black54,
+                  ),
+                ),
+              ),
             );
           } else if (snapshot.hasData) {
             Map<String, dynamic> data = snapshot.data!;
@@ -172,7 +179,8 @@ class HomeView extends StatelessWidget {
                     data["data"]["namesProcesos"].length,
                     (index) {
                       return Container(
-                        constraints: const BoxConstraints(minWidth: 350.0),
+                        constraints: const BoxConstraints(
+                            minWidth: 350.0, maxWidth: 450.0),
                         width: MediaQuery.of(context).orientation ==
                                 Orientation.landscape
                             ? MediaQuery.of(context).size.width * 0.4
