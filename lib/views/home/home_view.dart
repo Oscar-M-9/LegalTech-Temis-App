@@ -107,55 +107,59 @@ class HomeView extends StatelessWidget {
         ],
       ),
       drawer: const DrawerWidget(),
-      body: FutureBuilder<Map<String, dynamic>>(
-        future: homeService.home(),
-        builder: (context, snapshot) {
-          if (snapshot.connectionState == ConnectionState.waiting) {
-            return const Center(
-              child: SizedBox(
-                height: 80,
-                width: 80,
-                child: LoadingIndicator(
-                  indicatorType: Indicator.ballSpinFadeLoader,
-                  colors: [
-                    AppColors.primary200,
-                    AppColors.primary300,
-                    AppColors.primary500,
-                    AppColors.primary800,
-                    AppColors.primary900,
-                  ],
-                  strokeWidth: 2,
-                  // backgroundColor: Colors.black,
-                  // pathBackgroundColor: Colors.black,
-                ),
-              ),
-            );
-          } else if (snapshot.hasError) {
-            return const Expanded(
-              child: Center(
-                child: Text(
-                  "Ocurrió un error inesperado",
-                  style: TextStyle(
-                    color: Colors.black54,
+      body: RefreshIndicator(
+        onRefresh: homeService.home,
+        color: AppColors.primary400,
+        child: FutureBuilder<Map<String, dynamic>>(
+          future: homeService.home(),
+          builder: (context, snapshot) {
+            if (snapshot.connectionState == ConnectionState.waiting) {
+              return const Center(
+                child: SizedBox(
+                  height: 80,
+                  width: 80,
+                  child: LoadingIndicator(
+                    indicatorType: Indicator.ballSpinFadeLoader,
+                    colors: [
+                      AppColors.primary200,
+                      AppColors.primary300,
+                      AppColors.primary500,
+                      AppColors.primary800,
+                      AppColors.primary900,
+                    ],
+                    strokeWidth: 2,
+                    // backgroundColor: Colors.black,
+                    // pathBackgroundColor: Colors.black,
                   ),
                 ),
-              ),
-            );
-          } else if (snapshot.hasData) {
-            Map<String, dynamic> data = snapshot.data!;
-            // Implementa tu lógica para mostrar los datos aquí
-            return data["message"] == "No hay conexión a Internet"
-                ? NoConnectionView(
-                    message: data["message"],
-                    onPressed: () async {
-                      homeService.refreshHome();
-                    },
-                  )
-                : _buildDataView(data, context);
-          } else {
-            return const NoDataViewWidget();
-          }
-        },
+              );
+            } else if (snapshot.hasError) {
+              return const Expanded(
+                child: Center(
+                  child: Text(
+                    "Ocurrió un error inesperado",
+                    style: TextStyle(
+                      color: Colors.black54,
+                    ),
+                  ),
+                ),
+              );
+            } else if (snapshot.hasData) {
+              Map<String, dynamic> data = snapshot.data!;
+              // Implementa tu lógica para mostrar los datos aquí
+              return data["message"] == "No hay conexión a Internet"
+                  ? NoConnectionView(
+                      message: data["message"],
+                      onPressed: () async {
+                        homeService.refreshHome();
+                      },
+                    )
+                  : _buildDataView(data, context);
+            } else {
+              return const NoDataViewWidget();
+            }
+          },
+        ),
       ),
     );
   }

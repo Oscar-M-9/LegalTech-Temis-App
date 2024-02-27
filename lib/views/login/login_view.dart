@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:legaltech_temis/core/providers/index.dart';
@@ -18,6 +19,7 @@ class LoginView extends StatelessWidget {
         context.watch<PasswordVisibilityProvider>();
     final loginProvider = context.watch<LoginProvider>();
     return Scaffold(
+      backgroundColor: Colors.white,
       body: GestureDetector(
         onTap: () {
           final FocusScopeNode focus = FocusScope.of(context);
@@ -31,9 +33,9 @@ class LoginView extends StatelessWidget {
           child: Center(
             child: Padding(
               padding: const EdgeInsets.only(
-                // bottom: 50,
-                right: 15,
-                left: 15,
+                bottom: 0,
+                right: 10,
+                left: 10,
                 top: 20,
               ),
               child: Container(
@@ -54,7 +56,7 @@ class LoginView extends StatelessWidget {
                         child: Padding(
                           padding: EdgeInsets.only(left: 10),
                           child: SizedBox(
-                            height: 150,
+                            height: 140,
                             child: Image(
                               image: AssetImage(
                                 'assets/icons/TEMIS FAVICON3.png',
@@ -91,7 +93,7 @@ class LoginView extends StatelessWidget {
                       TextFormFieldCustom(
                         prefixIcon: const Padding(
                           padding: EdgeInsets.only(left: 5),
-                          child: Icon(Icons.email_rounded),
+                          child: Icon(CupertinoIcons.mail),
                         ),
                         hintText: "email@temisperu.com",
                         keyboardType: TextInputType.emailAddress,
@@ -117,7 +119,7 @@ class LoginView extends StatelessWidget {
                       TextFormFieldCustom(
                         prefixIcon: const Padding(
                           padding: EdgeInsets.only(left: 5),
-                          child: Icon(Icons.password_outlined),
+                          child: Icon(CupertinoIcons.lock),
                         ),
                         hintText: "*********",
                         keyboardType: TextInputType.visiblePassword,
@@ -126,8 +128,8 @@ class LoginView extends StatelessWidget {
                         suffixIcon: IconButton(
                           icon: Icon(
                             passwordVisibilityProvider.obscureText
-                                ? Icons.visibility
-                                : Icons.visibility_off,
+                                ? CupertinoIcons.eye
+                                : CupertinoIcons.eye_slash,
                           ),
                           onPressed: () {
                             passwordVisibilityProvider.toggleVisibility();
@@ -158,10 +160,10 @@ class LoginView extends StatelessWidget {
                               color: Colors.white,
                             ),
                             minimumSize: const Size(88, 36),
-                            padding: const EdgeInsets.symmetric(vertical: 12),
+                            padding: const EdgeInsets.symmetric(vertical: 15),
                             shape: const RoundedRectangleBorder(
                               borderRadius:
-                                  BorderRadius.all(Radius.circular(25)),
+                                  BorderRadius.all(Radius.circular(20)),
                             ),
                           ),
                           /*  */
@@ -220,8 +222,8 @@ class LoginView extends StatelessWidget {
                                   height: 23,
                                   width: 23,
                                   child: CircularProgressIndicator(
-                                    color: AppColors.secondary,
-                                    backgroundColor: Colors.white,
+                                    color: AppColors.primary300,
+                                    backgroundColor: AppColors.primary600,
                                   ),
                                 )
                               : const Text(

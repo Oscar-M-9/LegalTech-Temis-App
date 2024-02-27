@@ -407,10 +407,9 @@ class _MyAppState extends State<MyApp> {
     notificationService.onMessageApi();
 
     return MaterialApp(
+      /*  */
       useInheritedMediaQuery: true,
-      /*  */
       locale: DevicePreview.locale(context),
-      /*  */
       builder: DevicePreview.appBuilder,
       /*  */
       navigatorKey: navigatorKey,

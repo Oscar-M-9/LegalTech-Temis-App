@@ -78,81 +78,90 @@ class _CalendarProcesoPageState extends State<CalendarProcesoPage> {
               rangeSelectionMode: procesoCalendarService.rangeSelectionMode,
               eventLoader: procesoCalendarService.getEventsForDay,
               startingDayOfWeek: StartingDayOfWeek.monday,
-              calendarStyle: const CalendarStyle(
+              calendarStyle: CalendarStyle(
                 markerDecoration: BoxDecoration(
-                  color: AppColors.secondary600,
+                  color: currentBrightness == Brightness.light
+                      ? AppColors.secondary600
+                      : AppColors.primary600,
                   shape: BoxShape.circle,
                 ),
-                todayTextStyle: TextStyle(
+                todayTextStyle: const TextStyle(
                   color: Color(0xFFFAFAFA),
                   fontSize: 16.0,
                 ),
                 todayDecoration: BoxDecoration(
-                  color: AppColors.primary300,
+                  color: currentBrightness == Brightness.light
+                      ? AppColors.secondary500
+                      : AppColors.primary500,
                   shape: BoxShape.rectangle,
-                  borderRadius: BorderRadius.all(
+                  borderRadius: const BorderRadius.all(
                     Radius.circular(10),
                   ),
                 ),
-                selectedTextStyle: TextStyle(
+                selectedTextStyle: const TextStyle(
                   color: Color(0xFFFAFAFA),
                   fontSize: 16.0,
                 ),
                 selectedDecoration: BoxDecoration(
-                  color: AppColors.primary900,
+                  color: currentBrightness == Brightness.light
+                      ? AppColors.secondary700
+                      : AppColors.primary800,
                   shape: BoxShape.rectangle,
-                  borderRadius: BorderRadius.all(
+                  borderRadius: const BorderRadius.all(
                     Radius.circular(10),
                   ),
                 ),
-                rangeStartTextStyle: TextStyle(
+                rangeStartTextStyle: const TextStyle(
                   color: Color(0xFFFAFAFA),
                   fontSize: 16.0,
                 ),
-                rangeStartDecoration: BoxDecoration(
+                rangeStartDecoration: const BoxDecoration(
                   color: AppColors.primary600,
                   shape: BoxShape.rectangle,
                   borderRadius: BorderRadius.all(
                     Radius.circular(10),
                   ),
                 ),
-                rangeEndTextStyle: TextStyle(
+                rangeEndTextStyle: const TextStyle(
                   color: Color(0xFFFAFAFA),
                   fontSize: 16.0,
                 ),
-                rangeEndDecoration: BoxDecoration(
+                rangeEndDecoration: const BoxDecoration(
                   color: AppColors.primary600,
                   shape: BoxShape.rectangle,
                   borderRadius: BorderRadius.all(
                     Radius.circular(10),
                   ),
                 ),
-                withinRangeTextStyle: TextStyle(),
-                withinRangeDecoration: BoxDecoration(shape: BoxShape.rectangle),
-                outsideTextStyle: TextStyle(color: Color(0xFFAEAEAE)),
-                outsideDecoration: BoxDecoration(shape: BoxShape.rectangle),
-                disabledTextStyle: TextStyle(color: Color(0xFFBFBFBF)),
-                disabledDecoration: BoxDecoration(shape: BoxShape.rectangle),
-                holidayTextStyle: TextStyle(color: Color(0xFF5C6BC0)),
-                holidayDecoration: BoxDecoration(
+                withinRangeTextStyle: const TextStyle(),
+                withinRangeDecoration:
+                    const BoxDecoration(shape: BoxShape.rectangle),
+                outsideTextStyle: const TextStyle(color: Color(0xFFAEAEAE)),
+                outsideDecoration:
+                    const BoxDecoration(shape: BoxShape.rectangle),
+                disabledTextStyle: const TextStyle(color: Color(0xFFBFBFBF)),
+                disabledDecoration:
+                    const BoxDecoration(shape: BoxShape.rectangle),
+                holidayTextStyle: const TextStyle(color: Color(0xFF5C6BC0)),
+                holidayDecoration: const BoxDecoration(
                   border: Border.fromBorderSide(BorderSide(
                     color: Color(0xFF9FA8DA),
                     width: 1.4,
                   )),
                   shape: BoxShape.rectangle,
                 ),
-                weekendTextStyle: TextStyle(
+                weekendTextStyle: const TextStyle(
                   color: Color(0xFF5A5A5A),
                 ),
-                weekendDecoration: BoxDecoration(
+                weekendDecoration: const BoxDecoration(
                   shape: BoxShape.rectangle,
                 ),
-                weekNumberTextStyle: TextStyle(
+                weekNumberTextStyle: const TextStyle(
                   fontSize: 12,
                   color: Color(0xFFBFBFBF),
                 ),
-                defaultTextStyle: TextStyle(),
-                defaultDecoration: BoxDecoration(
+                defaultTextStyle: const TextStyle(),
+                defaultDecoration: const BoxDecoration(
                   shape: BoxShape.rectangle,
                 ),
                 // Use `CalendarStyle` to customize the UI
@@ -226,7 +235,10 @@ class _CalendarProcesoPageState extends State<CalendarProcesoPage> {
                                       //     currentBrightness == Brightness.light
                                       //         ? Colors.white
                                       //         : Colors.black26,
-                                      color: AppColors.secondary600,
+                                      color:
+                                          currentBrightness == Brightness.light
+                                              ? AppColors.secondary600
+                                              : AppColors.primary600,
                                       borderRadius: BorderRadius.circular(5.0),
                                     ),
                                     child: Row(
@@ -240,8 +252,8 @@ class _CalendarProcesoPageState extends State<CalendarProcesoPage> {
                                           decoration: const BoxDecoration(
                                             color: Colors.transparent,
                                             borderRadius: BorderRadius.only(
-                                              topLeft: Radius.circular(3),
-                                              bottomLeft: Radius.circular(3),
+                                              topLeft: Radius.circular(5),
+                                              bottomLeft: Radius.circular(5),
                                             ),
                                           ),
                                         ),
@@ -252,11 +264,11 @@ class _CalendarProcesoPageState extends State<CalendarProcesoPage> {
                                               color: currentBrightness ==
                                                       Brightness.light
                                                   ? Colors.white
-                                                  : Colors.black26,
+                                                  : Colors.black,
                                               borderRadius:
                                                   const BorderRadius.only(
-                                                topRight: Radius.circular(3),
-                                                bottomRight: Radius.circular(3),
+                                                topRight: Radius.circular(5),
+                                                bottomRight: Radius.circular(5),
                                               ),
                                             ),
                                             child: Padding(

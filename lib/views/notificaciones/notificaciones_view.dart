@@ -25,59 +25,63 @@ class NotificacionesView extends StatelessWidget {
           "Notificaciones",
         ),
       ),
-      body: FutureBuilder<Map<String, dynamic>>(
-        future: notify,
-        builder: (context, snapshot) {
-          if (snapshot.connectionState == ConnectionState.waiting) {
-            return const Center(
-              child: SizedBox(
-                height: 80,
-                width: 80,
-                child: LoadingIndicator(
-                  indicatorType: Indicator.ballSpinFadeLoader,
-                  colors: [
-                    AppColors.primary200,
-                    AppColors.primary300,
-                    AppColors.primary500,
-                    AppColors.primary800,
-                    AppColors.primary900,
-                  ],
-                  strokeWidth: 2,
-                  // backgroundColor: Colors.black,
-                  // pathBackgroundColor: Colors.black,
-                ),
-              ),
-            );
-          } else if (snapshot.hasError) {
-            return const Expanded(
-              child: Center(
-                child: Text(
-                  "Ocurrió un error inesperado",
-                  style: TextStyle(
-                    color: Colors.black54,
+      body: RefreshIndicator(
+        onRefresh: notificationService.notification,
+        color: AppColors.primary400,
+        child: FutureBuilder<Map<String, dynamic>>(
+          future: notify,
+          builder: (context, snapshot) {
+            if (snapshot.connectionState == ConnectionState.waiting) {
+              return const Center(
+                child: SizedBox(
+                  height: 80,
+                  width: 80,
+                  child: LoadingIndicator(
+                    indicatorType: Indicator.ballSpinFadeLoader,
+                    colors: [
+                      AppColors.primary200,
+                      AppColors.primary300,
+                      AppColors.primary500,
+                      AppColors.primary800,
+                      AppColors.primary900,
+                    ],
+                    strokeWidth: 2,
+                    // backgroundColor: Colors.black,
+                    // pathBackgroundColor: Colors.black,
                   ),
                 ),
-              ),
-            );
-          } else if (snapshot.hasData) {
-            Map<String, dynamic> data = snapshot.data!;
-            // Implementa tu lógica para mostrar los datos aquí
-            return data["message"] == "No hay conexión a Internet"
-                ? _buildNoConnectionView(context, data, notificationService)
-                : Padding(
-                    padding: const EdgeInsets.only(
-                      top: 10,
-                      bottom: 15,
+              );
+            } else if (snapshot.hasError) {
+              return const Expanded(
+                child: Center(
+                  child: Text(
+                    "Ocurrió un error inesperado",
+                    style: TextStyle(
+                      color: Colors.black54,
                     ),
-                    child: YesNotification(
-                      currentBrightness: currentBrightness,
-                      data: data,
-                    ),
-                  );
-          } else {
-            return NoNotification(currentBrightness: currentBrightness);
-          }
-        },
+                  ),
+                ),
+              );
+            } else if (snapshot.hasData) {
+              Map<String, dynamic> data = snapshot.data!;
+              // Implementa tu lógica para mostrar los datos aquí
+              return data["message"] == "No hay conexión a Internet"
+                  ? _buildNoConnectionView(context, data, notificationService)
+                  : Padding(
+                      padding: const EdgeInsets.only(
+                        top: 10,
+                        bottom: 15,
+                      ),
+                      child: YesNotification(
+                        currentBrightness: currentBrightness,
+                        data: data,
+                      ),
+                    );
+            } else {
+              return NoNotification(currentBrightness: currentBrightness);
+            }
+          },
+        ),
       ),
     );
   }
