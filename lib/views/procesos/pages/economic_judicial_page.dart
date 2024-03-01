@@ -43,7 +43,7 @@ class EconomicJudicialPage extends StatelessWidget {
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(10),
                 color: currentBrightness == Brightness.light
-                    ? AppColors.secondary300
+                    ? AppColors.secondary400
                     : AppColors.primary900,
                 // border: Border(
                 //   bottom: BorderSide(
@@ -143,19 +143,39 @@ class EconomicJudicialPage extends StatelessWidget {
                     }
                     if (data[index]["moneda"] == "Sol" &&
                         data[index]["status"] == "Si") {
-                      totalPagadoSol += data[index]["mount"] as int;
+                      if (data[index]["type"] == "Gastos") {
+                        totalPagadoSol =
+                            totalPagadoSol - data[index]["mount"] as int;
+                      } else {
+                        totalPagadoSol += data[index]["mount"] as int;
+                      }
                     }
                     if (data[index]["moneda"] == "Dólar" &&
                         data[index]["status"] == "Si") {
-                      totalPagadoDolar += data[index]["mount"] as int;
+                      if (data[index]["type"] == "Gastos") {
+                        totalPagadoDolar =
+                            totalPagadoDolar - data[index]["mount"] as int;
+                      } else {
+                        totalPagadoDolar += data[index]["mount"] as int;
+                      }
                     }
                     if (data[index]["moneda"] == "Sol" &&
                         data[index]["status"] == "No") {
-                      totalNoPagadoSol += data[index]["mount"] as int;
+                      if (data[index]["type"] == "Gastos") {
+                        totalNoPagadoSol =
+                            totalNoPagadoSol - data[index]["mount"] as int;
+                      } else {
+                        totalNoPagadoSol += data[index]["mount"] as int;
+                      }
                     }
                     if (data[index]["moneda"] == "Dólar" &&
                         data[index]["status"] == "No") {
-                      totalNoPagadoDolar += data[index]["mount"] as int;
+                      if (data[index]["type"] == "Gastos") {
+                        totalNoPagadoDolar =
+                            totalNoPagadoDolar - data[index]["mount"] as int;
+                      } else {
+                        totalNoPagadoDolar += data[index]["mount"] as int;
+                      }
                     }
                   }
                   return Expanded(
@@ -187,7 +207,7 @@ class EconomicJudicialPage extends StatelessWidget {
                               children: [
                                 const Expanded(
                                   child: Text(
-                                    "Total (Pagado)",
+                                    "Total ",
                                     textAlign: TextAlign.start,
                                     style: TextStyle(
                                       // color: Colors.black,
@@ -231,58 +251,58 @@ class EconomicJudicialPage extends StatelessWidget {
                             ),
                           ),
                         ),
-                        Padding(
-                          padding: const EdgeInsets.symmetric(
-                            vertical: 5,
-                            horizontal: 10,
-                          ),
-                          child: Row(
-                            children: [
-                              const Expanded(
-                                child: Text(
-                                  "Total (No Pagado)",
-                                  textAlign: TextAlign.start,
-                                  style: TextStyle(
-                                    // color: Colors.black,
-                                    fontSize: 15,
-                                    // fontWeight: FontWeight.w500,
-                                  ),
-                                ),
-                              ),
-                              Expanded(
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.end,
-                                  children: [
-                                    Text(
-                                      formatAmountWithCurrencySymbol(
-                                        totalNoPagadoSol,
-                                        "Sol",
-                                      ),
-                                      textAlign: TextAlign.end,
-                                      style: const TextStyle(
-                                        // color: Colors.black,
-                                        fontSize: 15,
-                                        fontWeight: FontWeight.w500,
-                                      ),
-                                    ),
-                                    Text(
-                                      formatAmountWithCurrencySymbol(
-                                        totalNoPagadoDolar,
-                                        "Dólar",
-                                      ),
-                                      textAlign: TextAlign.end,
-                                      style: const TextStyle(
-                                        // color: Colors.black,
-                                        fontSize: 15,
-                                        fontWeight: FontWeight.w500,
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
+                        // Padding(
+                        //   padding: const EdgeInsets.symmetric(
+                        //     vertical: 5,
+                        //     horizontal: 10,
+                        //   ),
+                        //   child: Row(
+                        //     children: [
+                        //       const Expanded(
+                        //         child: Text(
+                        //           "Total (No Pagado)",
+                        //           textAlign: TextAlign.start,
+                        //           style: TextStyle(
+                        //             // color: Colors.black,
+                        //             fontSize: 15,
+                        //             // fontWeight: FontWeight.w500,
+                        //           ),
+                        //         ),
+                        //       ),
+                        //       Expanded(
+                        //         child: Column(
+                        //           crossAxisAlignment: CrossAxisAlignment.end,
+                        //           children: [
+                        //             Text(
+                        //               formatAmountWithCurrencySymbol(
+                        //                 totalNoPagadoSol,
+                        //                 "Sol",
+                        //               ),
+                        //               textAlign: TextAlign.end,
+                        //               style: const TextStyle(
+                        //                 // color: Colors.black,
+                        //                 fontSize: 15,
+                        //                 fontWeight: FontWeight.w500,
+                        //               ),
+                        //             ),
+                        //             Text(
+                        //               formatAmountWithCurrencySymbol(
+                        //                 totalNoPagadoDolar,
+                        //                 "Dólar",
+                        //               ),
+                        //               textAlign: TextAlign.end,
+                        //               style: const TextStyle(
+                        //                 // color: Colors.black,
+                        //                 fontSize: 15,
+                        //                 fontWeight: FontWeight.w500,
+                        //               ),
+                        //             ),
+                        //           ],
+                        //         ),
+                        //       ),
+                        //     ],
+                        //   ),
+                        // ),
                       ],
                     ),
                   );

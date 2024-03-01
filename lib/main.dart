@@ -23,6 +23,7 @@ import 'package:legaltech_temis/core/services/clientes_service.dart';
 import 'package:legaltech_temis/core/services/home_service.dart';
 import 'package:legaltech_temis/core/services/notification_service.dart';
 import 'package:legaltech_temis/core/services/proceso_calendar_service.dart';
+import 'package:legaltech_temis/core/services/proceso_task_service.dart';
 import 'package:legaltech_temis/core/services/procesos_detalle_service.dart';
 import 'package:legaltech_temis/core/services/proceso_service.dart';
 import 'package:legaltech_temis/core/services/push_notification_service.dart';
@@ -252,6 +253,9 @@ void main() async {
         ),
         ChangeNotifierProvider(
           create: (_) => ProcesoCalendarService(),
+        ),
+        ChangeNotifierProvider(
+          create: (_) => ProcesoTaskService(),
         ),
       ],
       child: DevicePreview(

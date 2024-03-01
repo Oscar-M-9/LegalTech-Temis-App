@@ -300,17 +300,25 @@ class _InfiniteScrollPaginationState
                                               : Uri.http(
                                                   ConfigApp.apiBaseUrl, file);
 
-                                          await Navigator.pushNamed(
-                                            context,
-                                            Routes.pdfView,
-                                            arguments: {
-                                              "url": filePdf.toString(),
-                                              "name": file
-                                                  .split('/')
-                                                  .last
-                                                  .replaceAll('.pdf', ''),
-                                            },
-                                          );
+                                          if (file
+                                              .toLowerCase()
+                                              .endsWith('.pdf')) {
+                                            await Navigator.pushNamed(
+                                              context,
+                                              Routes.pdfView,
+                                              arguments: {
+                                                "url": filePdf.toString(),
+                                                "name": file
+                                                    .split('/')
+                                                    .last
+                                                    .replaceAll('.pdf', ''),
+                                              },
+                                            );
+                                          } else if (file
+                                              .toLowerCase()
+                                              .endsWith('.doc')) {
+                                            showAdaptiveAlertDialog(context);
+                                          }
 
                                           // if (await canLaunchUrl(filePdf)) {
                                           //   await launchUrl(filePdf);
@@ -481,17 +489,25 @@ class _InfiniteScrollPaginationState
                                           // } else {
                                           //   throw 'Could not launch ${items[index]['metadata']}';
                                           // }
-                                          await Navigator.pushNamed(
-                                            context,
-                                            Routes.pdfView,
-                                            arguments: {
-                                              "url": filePdf.toString(),
-                                              "name": file
-                                                  .split('/')
-                                                  .last
-                                                  .replaceAll('.pdf', ''),
-                                            },
-                                          );
+                                          if (items[index]["metadata"]
+                                              .toLowerCase()
+                                              .endsWith('.pdf')) {
+                                            await Navigator.pushNamed(
+                                              context,
+                                              Routes.pdfView,
+                                              arguments: {
+                                                "url": filePdf.toString(),
+                                                "name": items[index]['metadata']
+                                                    .split('/')
+                                                    .last
+                                                    .replaceAll('.pdf', ''),
+                                              },
+                                            );
+                                          } else if (items[index]["metadata"]
+                                              .toLowerCase()
+                                              .endsWith('.doc')) {
+                                            showAdaptiveAlertDialog(context);
+                                          }
                                         },
                                         child: Row(
                                           children: [
@@ -666,5 +682,35 @@ class _InfiniteScrollPaginationState
     //we do not have control cover the _scrollController so it should not be disposed here
     // _scrollController.dispose();
     super.dispose();
+  }
+
+  void showAdaptiveAlertDialog(BuildContext context) {
+    showAdaptiveDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog.adaptive(
+          title: const Text('¡Atención!'),
+          content: Text(
+            'Formato de documento no compatible.',
+            style: TextStyle(
+              color: Colors.grey.shade700,
+            ),
+          ),
+          actions: <Widget>[
+            TextButton(
+              child: const Text(
+                'Aceptar',
+                style: TextStyle(
+                  color: AppColors.primary600,
+                ),
+              ),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
+    );
   }
 }

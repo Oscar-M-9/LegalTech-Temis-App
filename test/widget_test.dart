@@ -6,14 +6,20 @@
 // tree, read text, and verify that the values of widget properties are correct.
 
 import 'package:flutter/material.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:legaltech_temis/core/routes/routes.dart';
 
 import 'package:legaltech_temis/main.dart';
 
+late final NotificationAppLaunchDetails? notificationAppLaunchDetails;
 void main() {
   testWidgets('Counter increments smoke test', (WidgetTester tester) async {
     // Build our app and trigger a frame.
-    // await tester.pumpWidget(MyApp());
+    await tester.pumpWidget(MyApp(
+      notificationAppLaunchDetails,
+      initialRoute: Routes.verifyAuth,
+    ));
 
     // Verify that our counter starts at 0.
     expect(find.text('0'), findsOneWidget);

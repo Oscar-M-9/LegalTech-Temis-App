@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:legaltech_temis/core/services/procesos_detalle_service.dart';
 import 'package:legaltech_temis/core/utils/app_colors.dart';
@@ -37,113 +38,36 @@ class ItemsTabsWidget extends StatelessWidget {
               const SizedBox(
                 width: 10,
               ),
-              MaterialButton(
-                onPressed: () {
-                  procesoDetalleService.indexTab = 0;
-                },
-                color: currentBrightness == Brightness.light
-                    ? procesoDetalleService.indexTab == 0
-                        ? AppColors.secondary400
-                        : AppColors.secondary100
-                    : procesoDetalleService.indexTab == 0
-                        ? AppColors.primary950
-                        : Colors.grey.shade800,
-                height: 45,
-                elevation: 0,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(50),
-                ),
-                child: Text(
-                  "Seguimientos",
-                  style: TextStyle(
-                    color: currentBrightness == Brightness.light
-                        ? procesoDetalleService.indexTab == 0
-                            ? Colors.white
-                            : AppColors.secondary900
-                        : procesoDetalleService.indexTab == 0
-                            ? AppColors.primary100
-                            : AppColors.white,
-                    fontSize: 14,
-                    fontWeight: FontWeight.w600,
-                    letterSpacing: 0.5,
-                  ),
-                ),
+              TabButtonWidget(
+                text: "Seguimientos",
+                index: 0,
+                procesoDetalleService: procesoDetalleService,
+                currentBrightness: currentBrightness,
+                icon: CupertinoIcons.eye,
               ),
-              const SizedBox(
-                width: 10,
+              const SizedBox(width: 10),
+              TabButtonWidget(
+                text: "Datos económicos",
+                index: 1,
+                procesoDetalleService: procesoDetalleService,
+                currentBrightness: currentBrightness,
+                icon: CupertinoIcons.money_dollar,
               ),
-              MaterialButton(
-                onPressed: () {
-                  procesoDetalleService.indexTab = 1;
-                },
-                color: currentBrightness == Brightness.light
-                    ? procesoDetalleService.indexTab == 1
-                        ? AppColors.secondary400
-                        : AppColors.secondary100
-                    : procesoDetalleService.indexTab == 1
-                        ? AppColors.primary950
-                        : Colors.grey.shade800,
-                height: 45,
-                elevation: 0,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(50),
-                ),
-                child: Text(
-                  "Datos económicos",
-                  style: TextStyle(
-                    color: currentBrightness == Brightness.light
-                        ? procesoDetalleService.indexTab == 1
-                            ? Colors.white
-                            : AppColors.secondary900
-                        : procesoDetalleService.indexTab == 1
-                            ? AppColors.primary100
-                            : AppColors.white,
-                    fontSize: 14,
-                    fontWeight: FontWeight.w600,
-                    letterSpacing: 0.5,
-                  ),
-                ),
+              const SizedBox(width: 10),
+              TabButtonWidget(
+                text: "Calendario",
+                index: 2,
+                procesoDetalleService: procesoDetalleService,
+                currentBrightness: currentBrightness,
+                icon: CupertinoIcons.calendar,
               ),
-              const SizedBox(
-                width: 10,
-              ),
-              MaterialButton(
-                onPressed: () async {
-                  procesoDetalleService.indexTab = 2;
-                  // final calendarService = context.read<ProcesoCalendarService>();
-                  // await calendarService.calendar(entidad, exp);
-                  // calendarService.setFocusedDay(DateTime.now());
-                  // calendarService.setSelectedDay(DateTime.now());
-                  // ignore: use_build_context_synchronously
-                  // Navigator.pushNamed(context, Routes.calendar);
-                },
-                color: currentBrightness == Brightness.light
-                    ? procesoDetalleService.indexTab == 2
-                        ? AppColors.secondary400
-                        : AppColors.secondary100
-                    : procesoDetalleService.indexTab == 2
-                        ? AppColors.primary950
-                        : Colors.grey.shade800,
-                height: 45,
-                elevation: 0,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(50),
-                ),
-                child: Text(
-                  "Calendario",
-                  style: TextStyle(
-                    color: currentBrightness == Brightness.light
-                        ? procesoDetalleService.indexTab == 2
-                            ? Colors.white
-                            : AppColors.secondary900
-                        : procesoDetalleService.indexTab == 2
-                            ? AppColors.primary100
-                            : AppColors.white,
-                    fontSize: 14,
-                    fontWeight: FontWeight.w600,
-                    letterSpacing: 0.5,
-                  ),
-                ),
+              const SizedBox(width: 10),
+              TabButtonWidget(
+                text: "Tareas",
+                index: 3,
+                procesoDetalleService: procesoDetalleService,
+                currentBrightness: currentBrightness,
+                icon: CupertinoIcons.check_mark_circled,
               ),
               const SizedBox(
                 width: 10,
@@ -151,6 +75,93 @@ class ItemsTabsWidget extends StatelessWidget {
             ],
           ),
         ),
+      ),
+    );
+  }
+}
+
+class TabButtonWidget extends StatelessWidget {
+  final String text;
+  final int index;
+  final ProcesoDetalleService procesoDetalleService;
+  final Brightness currentBrightness;
+  final IconData? icon;
+
+  const TabButtonWidget({
+    super.key,
+    required this.text,
+    required this.index,
+    required this.procesoDetalleService,
+    required this.currentBrightness,
+    this.icon,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    final isSelected = procesoDetalleService.indexTab == index;
+    // final color = isSelected
+    //     ? currentBrightness == Brightness.light
+    //         ? AppColors.secondary400
+    //         : AppColors.primary950
+    //     : currentBrightness == Brightness.light
+    //         ? AppColors.secondary50
+    //         : Colors.grey.shade800;
+    final textColor = isSelected
+        ? currentBrightness == Brightness.light
+            ? Colors.white
+            : AppColors.primary100
+        : currentBrightness == Brightness.light
+            ? AppColors.secondary900
+            : AppColors.white;
+    final borderColor = isSelected
+        ? Colors.transparent
+        : currentBrightness == Brightness.light
+            ? Colors.grey.shade300
+            : Colors.grey.shade800;
+
+    final buttonColor = isSelected
+        ? currentBrightness == Brightness.light
+            ? AppColors.secondary400
+            : AppColors.primary950
+        : currentBrightness == Brightness.light
+            ? AppColors.white
+            : Colors.grey.shade900;
+
+    return MaterialButton(
+      onPressed: () {
+        procesoDetalleService.indexTab = index;
+      },
+      color: buttonColor,
+      height: 45,
+      elevation: 0,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(isSelected ? 5 : 10),
+        side: BorderSide(
+          style: isSelected ? BorderStyle.none : BorderStyle.solid,
+          width: 1.0,
+          color: borderColor,
+        ),
+      ),
+      child: Row(
+        children: [
+          Icon(
+            icon,
+            color: textColor,
+          ),
+          const SizedBox(
+            width: 5,
+          ),
+          Text(
+            text,
+            style: TextStyle(
+              color: textColor,
+              fontSize: 12,
+              fontWeight: FontWeight.w500,
+              letterSpacing: 0.5,
+            ),
+            textAlign: TextAlign.start,
+          ),
+        ],
       ),
     );
   }

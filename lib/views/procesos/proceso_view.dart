@@ -252,7 +252,7 @@ class CardExpediente extends StatelessWidget {
           : MediaQuery.of(context).size.width * 0.92,
       decoration: BoxDecoration(
         color: currentBrightness == Brightness.light
-            ? Colors.grey.shade50
+            ? Colors.white
             : Colors.grey.withOpacity(.1),
         borderRadius: BorderRadius.circular(5),
       ),

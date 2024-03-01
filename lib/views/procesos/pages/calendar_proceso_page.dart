@@ -49,8 +49,19 @@ class _CalendarProcesoPageState extends State<CalendarProcesoPage> {
 
     return Wrap(
       children: [
-        SizedBox(
+        Container(
           key: containerKey,
+          margin: const EdgeInsets.only(
+            top: 10,
+            right: 10,
+            left: 10,
+          ),
+          decoration: BoxDecoration(
+            color: currentBrightness == Brightness.light
+                ? Colors.white
+                : Colors.black,
+            borderRadius: BorderRadius.circular(10),
+          ),
           width: MediaQuery.of(context).orientation == Orientation.landscape
               ? MediaQuery.of(context).size.width * 0.5
               : MediaQuery.of(context).size.width,
@@ -189,7 +200,7 @@ class _CalendarProcesoPageState extends State<CalendarProcesoPage> {
           final screenHeight = MediaQuery.of(context).size.height;
           final renderBox =
               containerKey.currentContext?.findRenderObject() as RenderBox;
-          final remainingHeight = screenHeight - renderBox.size.height - 90;
+          final remainingHeight = screenHeight - renderBox.size.height - 110;
           final remainingHeightContainer = renderBox.size.height > 190.0
               ? remainingHeight * 0.8
               : remainingHeight * 0.85;
